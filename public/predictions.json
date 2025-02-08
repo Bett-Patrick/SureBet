@@ -1,0 +1,41 @@
+{
+    "matches": [
+      {
+        "id": 1,
+        "home_team": "Team A",
+        "away_team": "Team B",
+        "match_date": "2025-02-10",
+        "prediction": "Home",
+        "odds": {
+          "home": "2.5",
+          "away": "3.0",
+          "draw": "3.2"
+        }
+      },
+      {
+        "id": 2,
+        "home_team": "Team C",
+        "away_team": "Team D",
+        "match_date": "2025-02-11",
+        "prediction": "Draw",
+        "odds": {
+          "home": "2.0",
+          "away": "2.5",
+          "draw": "3.2"
+        }
+      },
+      {
+        "id": 3,
+        "home_team": "Team E",
+        "away_team": "Team F",
+        "match_date": "2025-02-12",
+        "prediction": "Away",
+        "odds": {
+          "home": "2.0",
+          "away": "1.8",
+          "draw": "3.4"
+        }
+      }
+    ]
+  }
+  
