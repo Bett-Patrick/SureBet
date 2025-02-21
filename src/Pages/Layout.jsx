@@ -11,7 +11,6 @@ const Layout = () => {
                 <NavLink to="/predictions">Predictions</NavLink>
                 <NavLink to="/login" className=" bg-green-500 text-white p-2 w-30 text-xl rounded-2xl" >Login</NavLink>
             </div>
-            
         </nav>
       </header>
 
@@ -20,7 +19,6 @@ const Layout = () => {
       </main>
 
       <Footer/>
-    
     </div>
   )
 }
