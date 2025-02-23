@@ -1,12 +1,13 @@
 import OurWinsCarousel from '../../public/Components/OurWinsCarousel';
 import Pricing from '../../public/Components/Pricing';
+import Testimonials from '../../public/Components/Testimonials';
 import stadium_bg from '../assets/stadium.jpg';
 import { IoCheckbox } from "react-icons/io5";
 
 const HomePage = () => {
   return (
     <div>
-      <div className="relative h-[500px] w-full">
+      <div className="h-[500px] mb-30 w-full">
         {/* Background Image with Overlay */}
         <div 
           style={{ backgroundImage: `url(${stadium_bg})` }} 
@@ -37,6 +38,7 @@ const HomePage = () => {
         </div>
       </div>
       <Pricing className=""/>
+      <Testimonials/>
     </div>
     
   );

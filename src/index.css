@@ -16,6 +16,14 @@ body{
   text-align: center;
 }
 
+.pricings{
+  overflow-x: auto;
+}
+.pricings .container{
+  min-height: 30px;
+  min-width: 300px;
+}
+
 .pricing-info{
   display: flex;
   justify-content: start;
