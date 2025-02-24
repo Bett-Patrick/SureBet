@@ -1,5 +1,6 @@
 import OurWinsCarousel from '../../public/Components/OurWinsCarousel';
 import Pricing from '../../public/Components/Pricing';
+import Statistics from '../../public/Components/Statistics';
 import Testimonials from '../../public/Components/Testimonials';
 import stadium_bg from '../assets/stadium.jpg';
 import { IoCheckbox } from "react-icons/io5";
@@ -38,6 +39,7 @@ const HomePage = () => {
         </div>
       </div>
       <Pricing className=""/>
+      <Statistics/>
       <Testimonials/>
     </div>
     
