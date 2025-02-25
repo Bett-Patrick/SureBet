@@ -1,3 +1,4 @@
+import FreeTips from '../../public/Components/FreeTips';
 import OurWinsCarousel from '../../public/Components/OurWinsCarousel';
 import Pricing from '../../public/Components/Pricing';
 import Statistics from '../../public/Components/Statistics';
@@ -7,14 +8,14 @@ import { IoCheckbox } from "react-icons/io5";
 
 const HomePage = () => {
   return (
-    <div>
-      <div className="h-[500px] mb-30 w-full">
+    <div className='home-page relative'>
+      <div className="h-[500px] mb-30 w-full relative">
         {/* Background Image with Overlay */}
         <div 
           style={{ backgroundImage: `url(${stadium_bg})` }} 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center z-0"
         />
-        <div className="absolute inset-0 bg-black opacity-60"></div> Dark Overlay
+        <div className="absolute inset-0 bg-black opacity-60 z-0"></div> Dark Overlay
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center h-full text-center">
@@ -39,7 +40,8 @@ const HomePage = () => {
         </div>
       </div>
       <Pricing className=""/>
-      <Statistics/>
+      <FreeTips/>
+      {/* <Statistics/> */}
       <Testimonials/>
     </div>
     
