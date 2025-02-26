@@ -27,7 +27,7 @@ const Pricing = () => {
           <div className="pricing-info my-2"><TiTick className="text-white rounded-full mr-2 bg-yellow-500"/><span> Enjoy a full week of VIP predictions</span></div>
           <div className="pricing-info"><TiTick className="text-white rounded-full mr-2 bg-yellow-500"/><span> Weekly unbeatable football predictions!</span></div>
           <hr className="opacity-20 my-5" />
-          <button className="bg-green-500 border border-black text-white mx-auto mt-auto my-2 p-2 rounded-md font-bold hover:w-50 hover:h-12 text-lg hover:border-yellow-500 ">Get Started Now</button>
+          <button className="bg-[#006400] border border-black text-white mx-auto mt-auto my-2 p-2 rounded-md font-bold hover:w-50 hover:h-12 text-lg hover:border-yellow-500 ">Get Started Now</button>
         </div>
 
         <div className="container flex flex-col w-[30%] bg-slate-100 p-2 mb-10 rounded-xl h-80">
