@@ -5,6 +5,7 @@ import Pricing from '../../public/Components/Pricing';
 import Testimonials from '../../public/Components/Testimonials';
 import stadium_bg from '../assets/stadium.jpg';
 import { IoCheckbox } from "react-icons/io5";
+import AddPrediction from './AddPrediction';
 
 const HomePage = () => {
   return (
@@ -42,6 +43,7 @@ const HomePage = () => {
       <Pricing className=""/>
       <FreeTips/>
       {/* <Statistics/> */}
+      <AddPrediction/>
       <Testimonials/>
     </div>
     
