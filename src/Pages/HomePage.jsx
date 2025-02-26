@@ -5,7 +5,7 @@ import Pricing from '../../public/Components/Pricing';
 import Testimonials from '../../public/Components/Testimonials';
 import stadium_bg from '../assets/stadium.jpg';
 import { IoCheckbox } from "react-icons/io5";
-import AddPrediction from './AddPrediction';
+import AddPrediction from './Admin/AddPrediction';
 
 const HomePage = () => {
   return (
