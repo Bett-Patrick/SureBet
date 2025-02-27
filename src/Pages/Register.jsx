@@ -1,4 +1,8 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { auth, db } from "../../public/Components/firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +21,28 @@ const Register = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Email:', email);
-    console.log('Phone:', phone);
-    console.log('Password:', password);
+    // console.log('Email:', email);
+    // console.log('Phone:', phone);
+    // console.log('Password:', password);
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        const user = auth.currentUser;
+        console.log(user)
+        if (user){
+            await setDoc(doc(db, "users", user.uid), {
+                email : user.email,
+                phone : phone,
+            })
+        }
+        console.log("User registered successfully")
+        toast.success("User registered successfully!!", {position: "top-center"})
+    } catch (error) {
+        console.log(error.message)
+        toast.error(error.message, {position: "bottom-center"})
+    }
   };
 
   return (

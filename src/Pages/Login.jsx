@@ -1,4 +1,7 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { auth } from "../../public/Components/firebase";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,11 +15,17 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        toast.success("User loged in successfully!!", {position: "top-center"})
+    } catch (error) {
+        toast.error(error.message, {position: "bottom-center"})
+    }
   };
 
   return (

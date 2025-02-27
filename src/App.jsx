@@ -4,6 +4,7 @@ import Layout from "../public/Components/Layout";
 import PredictionsPage from "./Pages/PredictionsPage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/predictions" element={<PredictionsPage />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };
