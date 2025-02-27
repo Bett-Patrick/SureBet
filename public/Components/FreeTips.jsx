@@ -19,7 +19,7 @@ const FreeTips = () => {
                         <div className="">vs</div>
                         <div className="border w-[100px] my-2 rounded-md">Away Team</div>
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
-                        <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
+                        <div className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">Statistics</span></div>
                     </aside>
                     {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
@@ -52,7 +52,7 @@ const FreeTips = () => {
                         <div className="">vs</div>
                         <div className="border w-[100px] my-2 rounded-md">Away Team</div>
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
-                        <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
+                        <div className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">Statistics</span></div>
                     </aside>
                     {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
@@ -85,7 +85,7 @@ const FreeTips = () => {
                         <div className="">vs</div>
                         <div className="border w-[100px] my-2 rounded-md">Away Team</div>
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
-                        <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
+                        <div className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">Statistics</span></div>
                     </aside>
                     {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
