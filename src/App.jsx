@@ -5,6 +5,7 @@ import PredictionsPage from "./Pages/PredictionsPage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import { ToastContainer } from "react-toastify";
+import UserProfile from "./Pages/UserProfile";
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<UserProfile />} />
           <Route path="/predictions" element={<PredictionsPage />} />
         </Route>
       </Routes>

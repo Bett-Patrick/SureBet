@@ -23,6 +23,7 @@ const Login = () => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
         toast.success("User loged in successfully!!", {position: "top-center"})
+        window.location.href = "/profile"
     } catch (error) {
         toast.error(error.message, {position: "bottom-center"})
     }
