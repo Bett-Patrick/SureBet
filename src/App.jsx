@@ -1,28 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
-import Layout from "./Pages/Layout";
+import Layout from "../public/Components/Layout";
 import PredictionsPage from "./Pages/PredictionsPage";
-import AdminDashboard from "./Pages/Admin/AdminDashboard";
-import PrivateRoute from "../public/Components/PrivateRoute";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 
 const App = () => {
-  const isAuthenticated = true; // Replace with your actual authentication logic
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/predictions" element={<PredictionsPage />} />
         </Route>
-        <Route
-          path="/admin/*"
-          element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
       </Routes>
     </BrowserRouter>
   );

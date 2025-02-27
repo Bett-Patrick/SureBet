@@ -72,17 +72,17 @@ const OurWinsCarousel = () => {
           >
             <div className="flex justify-center items-center gap-5 h-10">
               <h3 className="text-l font-semibold">{`${prediction.homeTeam}`}</h3>
-              <div className="flex justify-center items-center bg-green-600 px-1 rounded-sm text-slate-50">
+              <div className="flex justify-center items-center bg-[#006400] px-1 rounded-sm text-slate-50">
                 <span>{`${prediction.score.home}`} </span>
                 <span>-</span>
                 <span>{`${prediction.score.home}`}</span>
               </div>
               <h3 className="text-l font-semibold">{`${prediction.awayTeam}`}</h3>
             </div>
-            <p className="mt-1 text-gray-800">Prediction: <span className="font-bold text-green-500">{prediction.prediction}</span></p>
+            <p className="mt-1 text-gray-800">Prediction: <span className="font-bold text-d[#006400]">{prediction.prediction}</span></p>
             <div className="flex justify-between items-center">
               <p className="mt-1 text-sm text-gray-600">{prediction.date}</p>
-              <p className="flex justify-center items-center gap-1 text-sm font-bold mt-1 text-gray-600"><span className="bg-green-500 rounded-full text-white"><TiTick/></span>{prediction.result}</p>
+              <p className="flex justify-center items-center gap-1 text-sm font-bold mt-1 text-gray-600"><span className="bg-d[#006400] rounded-full text-white"><TiTick/></span>{prediction.result}</p>
             </div>
             
           </div>

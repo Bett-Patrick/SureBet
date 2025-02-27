@@ -25,17 +25,17 @@ const HomePage = () => {
 
           <div className="flex justify-center items-center gap-10 mt-5 text-2xl">
             <div className="flex justify-center items-center gap-3 text-white">
-              <IoCheckbox className='bg-green-500'/>
+              <IoCheckbox className='bg-[#006400]'/>
               <p>Expert Tips</p>  
             </div>
             <div className="flex justify-center items-center gap-3 text-white">
-              <IoCheckbox className='bg-green-500'/>
+              <IoCheckbox className='bg-[#006400]'/>
               <p>Proven Track Record</p>
             </div>
           </div>
           <div className='flex justify-center items-center gap-10 mt-15'>
-            <button className='bg-green-500 px-5 py-2 rounded-lg text-slate-50 font-bold'>Get Started</button>
-            <button className='bg-green-500 px-5 py-2 rounded-lg text-slate-50 font-bold'>Join VIP</button>
+            <button className='bg-[#006400] px-5 py-2 rounded-lg text-slate-50 font-bold'>Get Started</button>
+            <button className='bg-[#006400] px-5 py-2 rounded-lg text-slate-50 font-bold'>Join VIP</button>
           </div>
           <OurWinsCarousel/>
         </div>

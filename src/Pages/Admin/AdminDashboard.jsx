@@ -1,15 +1,12 @@
-import Sidebar from './Sidebar'; // Assuming you have a Sidebar component
-import { Route, Routes } from 'react-router-dom';
-import AddPrediction from './AddPrediction';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../../../public/Components/Sidebar';
 
 const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <Sidebar />
       <div className="main-content">
-        <Routes>
-          <Route path="/add-predictions" element={<AddPrediction />} />
-        </Routes>
+          <Outlet/>
       </div>
     </div>
   );
