@@ -21,7 +21,7 @@ const FreeTips = () => {
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
                         <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
                     </aside>
-                    <h1 className="text-md font-bold text-amber-300">ODDS</h1>
+                    {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
                     <aside className="odds-container my-2">
                         <aside className="odds flex flex-row gap-10 justify-center items-center">
@@ -54,7 +54,7 @@ const FreeTips = () => {
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
                         <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
                     </aside>
-                    <h1 className="text-md font-bold text-amber-300">ODDS</h1>
+                    {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
                     <aside className="odds-container my-2">
                         <aside className="odds flex flex-row gap-10 justify-center items-center">
@@ -87,7 +87,7 @@ const FreeTips = () => {
                         <div className="border w-[100px] my-2 rounded-md">Prediction</div>
                         <div className="statistics flex justify-baseline gap-1 text-amber-300 font-bold border-2 border-transparent hover:rounded-2xl p-1 hover:bg-white hover:text-black cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5">Statistics</span></div>
                     </aside>
-                    <h1 className="text-md font-bold text-amber-300">ODDS</h1>
+                    {/* <h1 className="text-md font-bold text-amber-300">ODDS</h1> */}
                     <hr />
                     <aside className="odds-container my-2">
                         <aside className="odds flex flex-row gap-10 justify-center items-center">
