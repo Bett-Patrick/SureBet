@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../public/Components/firebase";
+import { auth, db } from "../../public/Components/firebase";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,9 +41,16 @@ const Login = () => {
 
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Logged in successfully!", { position: "top-center" });
-      navigate("/profile");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const role = userDoc.data().role;
+        toast.success("Logged in successfully!", { position: "top-center" });
+        
+        // Redirect Users After Login Based on Role
+        navigate(role === "admin" ? "/admin" : "/profile");
+      }
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
         toast.error("Invalid credentials!!", { position: "bottom-center" });
