@@ -6,16 +6,10 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import { ToastContainer } from "react-toastify";
 import UserProfile from "./Pages/UserProfile";
-import { useEffect, useState } from "react";
-import { auth } from "../public/Components/firebase";
+import useAuth from "./hooks/useAuth";
 
 const App = () => {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser(user);
-    })
-  },[])
+  const user = useAuth();
 
   return (
     <BrowserRouter>
@@ -23,7 +17,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={user ? <Navigate to="/profile" /> : <Login />} />
+          <Route path="/login" element={user ? <Navigate to="/profile" /> :<Login />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/predictions" element={<PredictionsPage />} />
         </Route>
