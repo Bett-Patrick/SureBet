@@ -102,6 +102,15 @@ const Login = () => {
             register
           </button>
         </div>
+        <div className="flex flex-row gap-3 justify-center my-3">
+          <p>Forgot your password?</p>
+          <button 
+            className="font-semibold border-b-2 text-blue-950 p-0"
+            onClick={() => navigate("/reset-password")}
+          >
+            Reset Password
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -52,6 +52,7 @@ const Register = () => {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
           phone: phone,
+          role: "user"
         });
       }
       // LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION

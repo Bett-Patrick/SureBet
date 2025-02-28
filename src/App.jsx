@@ -7,6 +7,7 @@ import Login from "./Pages/Login";
 import { ToastContainer } from "react-toastify";
 import UserProfile from "./Pages/UserProfile";
 import useAuth from "./hooks/useAuth";
+import PasswordReset from "./Pages/PasswordReset";
 
 const App = () => {
   const user = useAuth();
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/login" element={user ? <Navigate to="/profile" /> :<Login />} />
           <Route path="/profile" element={user? <UserProfile /> : <Navigate to="/login"/>} />
           <Route path="/predictions" element={<PredictionsPage />} />
+          <Route path="/reset-password" element={<PasswordReset/>}></Route>
         </Route>
       </Routes>
       <ToastContainer />
