@@ -93,6 +93,15 @@ const Login = () => {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
+        <div className="flex flex-row gap-3 justify-center my-3">
+          <p>Don't have an account yet?</p>
+          <button 
+            className="font-semibold border-b-2 text-blue-950 p-0"
+            onClick={() => navigate("/register")}
+          >
+            register
+          </button>
+        </div>
       </form>
     </div>
   );

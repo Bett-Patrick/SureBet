@@ -119,11 +119,20 @@ const Register = () => {
         <hr className='h-2 mx-auto opacity-20 mt-5'/>
         <button
           type="submit"
-          className={`my-5 text-white rounded-xl p-2 text-xl font-bold ${loading ? 'bg-gray-500' : 'bg-[#006400]'}`}
+          className={`mt-5 text-white rounded-xl p-2 text-xl font-bold ${loading ? 'bg-gray-500' : 'bg-[#006400]'}`}
           disabled={loading}
         >
           {loading ? "Registering..." : "Register"}
         </button>
+        <div className="flex flex-row gap-3 justify-center my-3">
+          <p>Already have an account?</p>
+          <button 
+            className="font-semibold border-b-2 text-blue-950 p-0"
+            onClick={() => navigate("/login")}
+          >
+            login
+          </button>
+        </div>
       </form>
     </div>
   );
