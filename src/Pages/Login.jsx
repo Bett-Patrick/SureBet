@@ -1,11 +1,14 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../public/Components/firebase";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -17,15 +20,37 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    // console.log('Email:', email);
-    // console.log('Password:', password);
+
+    // Email and Password Validation
+    if (!email || !password) {
+      toast.error("All fields are required", { position: "bottom-center" });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Invalid email format", { position: "bottom-center" });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long", { position: "bottom-center" });
+      return;
+    }
+
+    setLoading(true);
     try {
-        await signInWithEmailAndPassword(auth, email, password);
-        toast.success("User loged in successfully!!", {position: "top-center"})
-        window.location.href = "/profile"
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Logged in successfully!", { position: "top-center" });
+      navigate("/profile");
     } catch (error) {
-        toast.error(error.message, {position: "bottom-center"})
+      if (error.code === 'auth/invalid-credential') {
+        toast.error("Invalid credentials!!", { position: "bottom-center" });
+      } else {
+        toast.error(error.message, { position: "bottom-center" });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,7 +86,13 @@ const Login = () => {
           </div>
         </div>
         <hr className='h-2 mx-auto opacity-20 mt-5'/>
-        <button type="submit" className='my-5 bg-[#006400] text-white rounded-xl p-2 text-xl font-bold'>Login</button>
+        <button
+          type="submit"
+          className={`my-5 text-white rounded-xl p-2 text-xl font-bold ${loading ? 'bg-gray-500' : 'bg-[#006400]'}`}
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
     </div>
   );

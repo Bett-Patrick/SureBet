@@ -54,7 +54,7 @@ const Register = () => {
           phone: phone,
         });
       }
-      // ✅ LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION
+      // LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION
       await signOut(auth);
       toast.success("User registered successfully!!", { position: "top-center" });
       // Navigate to login page after successful registration
