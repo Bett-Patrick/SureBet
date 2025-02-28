@@ -1,13 +1,16 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth, db } from "../../public/Components/firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDocs, collection, query, where } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -23,25 +26,46 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    // console.log('Email:', email);
-    // console.log('Phone:', phone);
-    // console.log('Password:', password);
+    if (!email || !phone || !password) {
+      toast.error("All fields are required", { position: "bottom-center" });
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long", { position: "bottom-center" });
+      return;
+    }
+    setLoading(true);
     try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        const user = auth.currentUser;
-        console.log(user)
-        if (user){
-            await setDoc(doc(db, "users", user.uid), {
-                email : user.email,
-                phone : phone,
-            })
-        }
-        console.log("User registered successfully")
-        toast.success("User registered successfully!!", {position: "top-center"})
+      // Check if the phone number already exists
+      const q = query(collection(db, "users"), where("phone", "==", phone));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        toast.error("Phone number already registered", { position: "bottom-center" });
+        setLoading(false);
+        return;
+      }
+
+      await createUserWithEmailAndPassword(auth, email, password);
+      const user = auth.currentUser;
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          phone: phone,
+        });
+      }
+      toast.success("User registered successfully!!", { position: "top-center" });
+      navigate("/profile");
     } catch (error) {
-        console.log(error.message)
-        toast.error(error.message, {position: "bottom-center"})
+      console.log(error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error("Email already in use", { position: "bottom-center" });
+      } else if (error.code === 'auth/invalid-email') {
+        toast.error("Invalid email", { position: "bottom-center" });
+      } else {
+        toast.error(error.message, { position: "bottom-center" });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,7 +113,13 @@ const Register = () => {
           </div>
         </div>
         <hr className='h-2 mx-auto opacity-20 mt-5'/>
-        <button type="submit" className='my-5 bg-[#006400] text-white rounded-xl p-2 text-xl font-bold'>Register</button>
+        <button
+          type="submit"
+          className={`my-5 text-white rounded-xl p-2 text-xl font-bold ${loading ? 'bg-gray-500' : 'bg-[#006400]'}`}
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
       </form>
     </div>
   );
