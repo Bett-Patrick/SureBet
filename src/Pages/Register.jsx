@@ -36,6 +36,11 @@ const Register = () => {
     }
     setLoading(true);
     try {
+      // Check if there are any users in the database
+      const usersRef = collection(db, "users");
+      const usersSnapshot = await getDocs(usersRef);
+      const isFirstUser = usersSnapshot.empty;
+
       // Check if the phone number already exists
       const q = query(collection(db, "users"), where("phone", "==", phone));
       const querySnapshot = await getDocs(q);
@@ -52,7 +57,7 @@ const Register = () => {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
           phone: phone,
-          role: "user"
+          role: isFirstUser ? "admin" : "user",
         });
       }
       // LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION
