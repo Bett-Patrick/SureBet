@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
 import { auth, db } from "../../public/Components/firebase";
 import { setDoc, doc, getDocs, collection, query, where } from "firebase/firestore";
@@ -45,6 +45,7 @@ const Register = () => {
         return;
       }
 
+      // Register the user in Firebase
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
       if (user) {
@@ -53,8 +54,11 @@ const Register = () => {
           phone: phone,
         });
       }
+      // ✅ LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION
+      await signOut(auth);
       toast.success("User registered successfully!!", { position: "top-center" });
-      navigate("/profile");
+      // Navigate to login page after successful registration
+      navigate("/login"); 
     } catch (error) {
       console.log(error.message);
       if (error.code === 'auth/email-already-in-use') {
