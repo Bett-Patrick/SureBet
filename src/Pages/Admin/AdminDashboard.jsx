@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../../../public/Components/Sidebar';
 import { auth } from '../../../public/Components/firebase';
+import ApproveAdmins from '../ApproveAdmins';
 
 const AdminDashboard = () => {
       async function handleLogout(){
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <button className=" bg-green-800 ext-white rounded-md px-2 font-md" onClick={handleLogout}>Logout</button>
       <Sidebar />
+      <ApproveAdmins/>
       <div className="main-content">
           <Outlet/>
       </div>
