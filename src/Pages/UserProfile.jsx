@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { auth, db } from "../../public/Components/firebase"
+import { auth, db } from "../Components/firebase"
 import { doc, getDoc } from "firebase/firestore"
 
 const UserProfile = () => {

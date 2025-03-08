@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
-import Layout from "../public/Components/Layout";
+import Layout from "./Components/Layout";
 import PredictionsPage from "./Pages/PredictionsPage";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import UserProfile from "./Pages/UserProfile";
 import useAuth from "./hooks/useAuth";
 import PasswordReset from "./Pages/PasswordReset";
-import PrivateRoute from "../public/Components/PrivateRoute";
+import PrivateRoute from "./Components/PrivateRoute";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 
 const App = () => {
@@ -48,7 +48,9 @@ const App = () => {
             path="/admin" 
             element={
               <PrivateRoute requiredRole="admin">
-                <AdminDashboard/>
+                <Route path="/admin-dashbioard" element={<AdminDashboard/>} >
+                  <Route path=""></Route>
+                </Route>
               </PrivateRoute>
             }>
           </Route>

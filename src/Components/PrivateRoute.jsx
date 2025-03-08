@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { auth, db } from "../../public/Components/firebase";
+import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const PrivateRoute = ({ children, requiredRole }) => {

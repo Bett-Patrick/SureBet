@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
-import { auth, db } from "../../public/Components/firebase";
+import { auth, db } from "../Components/firebase";
 import { setDoc, doc, getDocs, collection, query, where } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
