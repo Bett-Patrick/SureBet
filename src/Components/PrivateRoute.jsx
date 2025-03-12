@@ -5,26 +5,31 @@ import { doc, getDoc } from "firebase/firestore";
 
 const PrivateRoute = ({ children, requiredRole }) => {
   const [role, setRole] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRole = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
           setRole(userSnap.data().role);
         }
       }
       setLoading(false);
-    };
-    fetchRole();
+    });
+
+    return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
 
   if (loading) return <p>Loading...</p>;
 
-  return role === requiredRole ? children : <Navigate to="/" />;
+  if (!user) return <Navigate to="/login" replace />; // Redirect to login if no user
+  if (role !== requiredRole) return <Navigate to="/" replace />; // Redirect if wrong role
+
+  return children; // Render protected component
 };
 
 export default PrivateRoute;
