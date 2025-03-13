@@ -5,7 +5,7 @@ const AdminLayout = () => {
   return (
     <div className="admin-layout flex">
       <Sidebar />
-      <div className="main-content w-full p-4">
+      <div className="main-content w-full">
         <Outlet /> {/* This renders nested routes like AddPrediction & ApproveAdmins */}
       </div>
     </div>

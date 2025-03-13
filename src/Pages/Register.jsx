@@ -57,13 +57,13 @@ const Register = () => {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
           phone: phone,
-          role: isFirstUser ? "admin" : "user",
+          role: isFirstUser ? "super-admin" : "user",
         });
       }
       // LOG OUT THE USER AFTER SUCCESSFUL REGISTRATION
       await signOut(auth);
       toast.success("User registered successfully!!", { position: "top-center" });
-      // Navigate to login page after successful registration
+      // Navigate user to login page after successful registration
       navigate("/login"); 
     } catch (error) {
       console.log(error.message);

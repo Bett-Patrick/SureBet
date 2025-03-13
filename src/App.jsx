@@ -24,19 +24,19 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route 
             path="/register" 
-            element={user ? (role === "admin" ? <Navigate to="/admin" /> : <Navigate to="/profile" />) : (<Register />)} 
+            element={<Register />} 
           />
           <Route 
             path="/login" 
-            element={user ? (role === "admin" ? <Navigate to="/admin" /> : <Navigate to="/profile" />) : (<Login />)} 
+            element={user ? (role === "super-admin" ? <Navigate to="/super-admin" /> : <Navigate to="/" />) : (<Login />)} 
           />
           <Route path="/profile" element={user ? <UserProfile /> : <Navigate to="/login"/>} />
           <Route path="/predictions" element={<PredictionsPage />} />
           <Route path="/reset-password" element={<PasswordReset/>}></Route>
 
 
-          {/* Admin Routes (Protected) */}
-          <Route path="/admin" element={<PrivateRoute requiredRole="admin"><AdminLayout/></PrivateRoute>}>
+          {/* super-admin Routes (Protected) */}
+          <Route path="/super-admin" element={<PrivateRoute requiredRole="super-admin"><AdminLayout/></PrivateRoute>}>
             <Route index element={<AddPrediction />} /> {/* Default page inside /admin */}
             <Route path="add-prediction" element={<AddPrediction />} />
             <Route path="add-admin" element={<ApproveAdmins />} />

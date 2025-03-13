@@ -45,11 +45,11 @@ const Login = () => {
       const user = userCredential.user;
       const userDoc = await getDoc(doc(db, "users", user.uid));
       if (userDoc.exists()) {
-        const role = userDoc.data().role;
+        // const role = userDoc.data().role;
         toast.success("Logged in successfully!", { position: "top-center" });
         
         // Redirect Users After Login Based on Role
-        navigate(role === "admin" ? "/admin" : "/profile");
+        // navigate(role === "admin" ? "/admin" : "/profile");
       }
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {

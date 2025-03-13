@@ -56,7 +56,7 @@ const AddPrediction = () => {
   };
 
   return (
-    <div className='add-prediction-page md:min-w-[500] my-30 gap-10 mx-auto px-[5%] border w-[90%] rounded-md'>
+    <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-[5%] border w-[90%] rounded-md'>
       <h1 className='text-4xl font-bold mt-5'>Add Prediction</h1>
       <hr className='h-2 mx-auto opacity-20 my-2' />
       <form onSubmit={handleSubmit}>

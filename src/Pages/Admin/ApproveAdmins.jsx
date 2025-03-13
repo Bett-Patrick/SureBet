@@ -16,6 +16,7 @@ const ApproveAdmins = () => {
     fetchUsers();
   }, []);
 
+  // function to promote user to admin
   const makeAdmin = async (userId) => {
     try {
       await updateDoc(doc(db, "users", userId), { role: "admin" });
@@ -26,16 +27,37 @@ const ApproveAdmins = () => {
     }
   };
 
+  // function to demote admin to user
+  const demoteAdmin = async (userId) =>{
+    try{
+      await updateDoc(doc(db, "users", userId), { role: "user" });
+      setUsers(users.map(user => (user.id === userId ? { ...user, role: "user" } : user)));
+      toast.success("Admin demoted to user!", { position: "top-center" });
+    }
+    catch(error){
+      toast.error("Error updating user role", { position: "bottom-center" });
+    }
+  }
+
   return (
     <div className="admin-approval">
-      <h2 className="text-3xl font-bold">Approve Admins</h2>
-      <ul>
+      <h2 className="text-3xl font-bold mt-3 italic">Approve Admins</h2>
+      <hr className="opacity-65 my-2"/>
+      <ul className="users-list flex flex-col gap-2">
         {users.map(user => (
-          <li key={user.id} className="flex justify-between p-2 border">
-            <span>{user.email} - {user.role}</span>
+          <li key={user.id} className="flex p-2 border-b items-center">
+            <span className="w-[30%] text-left">{user.email}</span>
+            <span className="w-[30%] font-bold text-xl"> {user.role}</span>
+            {/* button to promote admin */}
             {user.role === "user" && (
-              <button onClick={() => makeAdmin(user.id)} className="bg-green-600 text-white p-2 rounded">
+              <button onClick={() => makeAdmin(user.id)} className="bg-green-600 ml-[28%] text-white p-2 rounded font-semibold">
                 Make Admin
+              </button>
+            )}
+            {/* button to demote admin */}
+            {user.role === "admin" && (
+              <button onClick={() => demoteAdmin(user.id)} className="bg-red-600 ml-[28%] text-white p-2 rounded font-semibold">
+                Demote Admin
               </button>
             )}
           </li>
