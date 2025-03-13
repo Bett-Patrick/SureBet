@@ -27,7 +27,11 @@ const PrivateRoute = ({ children, requiredRole }) => {
   if (loading) return <p>Loading...</p>;
 
   if (!user) return <Navigate to="/login" replace />; // Redirect to login if no user
-  if (role !== requiredRole) return <Navigate to="/" replace />; // Redirect if wrong role
+  
+  // Check if requiredRole is an array or a string
+  const allowed = Array.isArray(requiredRole) ? requiredRole.includes(role) : role === requiredRole;
+
+  if (!allowed) return <Navigate to="/" replace />; // Redirect if role is not allowed
 
   return children; // Render protected component
 };

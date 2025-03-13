@@ -35,11 +35,13 @@ const App = () => {
           <Route path="/reset-password" element={<PasswordReset/>}></Route>
 
 
+          {/* Admin Route for AddPrediction - Accessible by Admin & Super Admin */}
+          <Route path="/add-prediction" element={<PrivateRoute requiredRole={["admin", "super-admin"]}><AddPrediction /></PrivateRoute>} />
+
           {/* super-admin Routes (Protected) */}
           <Route path="/super-admin" element={<PrivateRoute requiredRole="super-admin"><AdminLayout/></PrivateRoute>}>
             <Route index element={<AddPrediction />} /> {/* Default page inside /admin */}
-            <Route path="add-prediction" element={<AddPrediction />} />
-            <Route path="add-admin" element={<ApproveAdmins />} />
+            <Route path="approve-admin" element={<ApproveAdmins />} />
           </Route>
 
 
