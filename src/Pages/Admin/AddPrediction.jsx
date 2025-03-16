@@ -95,40 +95,42 @@ const AddPrediction = () => {
     <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-[5%] border w-[90%] rounded-md'>
       <h1 className='text-4xl font-bold mt-5'>Add Prediction</h1>
       <hr className='h-2 mx-auto opacity-20 my-2' />
-      <div className='flex flex-col items-center justify-center mt-10'>
+      <div className='flex flex-row gap-5 items-center justify-center my-5'>
         <input
           type='text'
-          placeholder='Enter team name...'
+          placeholder='Enter team name to search fixture...'
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
-          className='border p-2 rounded w-64'
+          className='border p-2 rounded-xl w-64 shadow-md shadow-gray-400'
         />
         <button
           onClick={handleSearch}
-          className='bg-blue-500 text-white px-4 py-2 mt-2 rounded'
+          className='bg-blue-950 text-white px-4 py-2 font-semibold rounded-md text-center'
         >
           Search
         </button>
 
         {isModalOpen && fixtures.length > 0 && (
           <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
-            <div className='bg-white p-5 rounded shadow-lg w-80'>
-              <h2 className='text-xl font-bold'>Next Fixtures</h2>
+            <div className='bg-white rounded shadow-lg w-80 h-fit py-2'>
+              <h2 className='text-xl font-bold'>Next Three Fixtures</h2>
+              <hr className='my-3'/>
               {fixtures.map((fixture) => (
                 <div
                   key={fixture.fixture.id}
-                  className='mb-4 cursor-pointer'
+                  className='mb-4 cursor-pointer px-5'
                   onClick={() => handleFixtureClick(fixture)}
                 >
                   <p>
                     {fixture.teams.home.name} vs {fixture.teams.away.name}
                   </p>
                   <p>Date: {new Date(fixture.fixture.date).toLocaleString()}</p>
+                  <hr className='my-3'/>
                 </div>
               ))}
               <button
                 onClick={() => setIsModalOpen(false)}
-                className='bg-red-500 text-white px-4 py-2 mt-4 rounded'
+                className='bg-red-500 text-white px-4 py-2 rounded'
               >
                 Close
               </button>
@@ -137,8 +139,8 @@ const AddPrediction = () => {
         )}
       </div>
       <form onSubmit={handleSubmit}>
-        <h1 className='text-left mb-3 text-[#000435] text-lg'>
-          Enter the Games and Prediction Accordingly:
+        <h1 className='text-left mb-3 text-[#350200] text-lg'>
+          These fields will be Automatically filled Accordingly after searching fixture :
         </h1>
         <div className='flex flex-row gap-5 items-center'>
           <input

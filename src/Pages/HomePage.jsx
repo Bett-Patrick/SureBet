@@ -42,7 +42,7 @@ const HomePage = () => {
       </div>
       <Pricing className=""/>
       <FreeTips/>
-      <Statistics/>
+      {/* <Statistics/> */}
       <Testimonials/>
     </div>
     
