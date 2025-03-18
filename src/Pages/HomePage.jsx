@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import { auth } from '../Components/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import FreeTips from '../Components/FreeTips';
 import OurWinsCarousel from '../Components/OurWinsCarousel';
 import Pricing from '../Components/Pricing';
@@ -11,6 +14,26 @@ import GoldTips from './GoldTips';
 import PlatinumTips from './PlatinumTips';
 
 const HomePage = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false); // Set loading to false once the auth state is determined
+    });
+
+    return () => unsubscribe(); // Cleanup the listener on component unmount
+  }, []);
+
+  if (loading) {
+    return (
+        <div className="flex flex-col items-center justify-center h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+          <p className='italic mt-5'>Just a moment! We're setting things up.🚀</p>
+        </div>
+    ); // Show a loading indicator while determining auth state
+  }
   return (
     <div className='home-page relative'>
       <div className="h-[500px] mb-30 w-full relative">
@@ -45,9 +68,9 @@ const HomePage = () => {
       </div>
       <Pricing className=""/>
       <FreeTips/>
-      <SilverTips/>
-      <GoldTips/>
-      <PlatinumTips/>
+      {user && <SilverTips/>} {/* Show SilverTips only if the user is logged in */}
+      {user && <GoldTips/>}   {/* Show GoldTips only if the user is logged in */}
+      {user && <PlatinumTips/>} {/* Show PlatinumTips only if the user is logged in */}
       {/* <Statistics/> */}
       <Testimonials/>
     </div>
