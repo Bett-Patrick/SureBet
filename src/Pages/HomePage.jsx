@@ -1,11 +1,14 @@
 import FreeTips from '../Components/FreeTips';
 import OurWinsCarousel from '../Components/OurWinsCarousel';
 import Pricing from '../Components/Pricing';
-import Statistics from '../Components/Statistics';
+// import Statistics from '../Components/Statistics';
 // import Statistics from '../../public/Components/Statistics';
 import Testimonials from '../Components/Testimonials';
 import stadium_bg from '../assets/stadium.jpg';
 import { IoCheckbox } from "react-icons/io5";
+import SilverTips from './SilverTips';
+import GoldTips from './GoldTips';
+import PlatinumTips from './PlatinumTips';
 
 const HomePage = () => {
   return (
@@ -42,6 +45,9 @@ const HomePage = () => {
       </div>
       <Pricing className=""/>
       <FreeTips/>
+      <SilverTips/>
+      <GoldTips/>
+      <PlatinumTips/>
       {/* <Statistics/> */}
       <Testimonials/>
     </div>
