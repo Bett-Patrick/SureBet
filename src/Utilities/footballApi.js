@@ -25,7 +25,7 @@ const fetchTeamId = async (teamName) => {
   }
 };
 
-// Function to fetch next fixtures
+// Function to fetch next 3 fixtures
 export const fetchNextFixtures = async (teamName) => {
   try {
     const teamId = await fetchTeamId(teamName); // Fetch team ID first
