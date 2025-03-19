@@ -11,6 +11,7 @@ const AddPrediction = () => {
   const [time, setTime] = useState('');
   const [referee, setReferee] = useState('');
   const [stadium, setStadium] = useState('');
+  const [fixtureId, setFixtureId] = useState(''); // Add fixtureId state
   const [plans, setPlans] = useState({
     free: false,
     silver: false,
@@ -44,12 +45,13 @@ const AddPrediction = () => {
   };
 
   const handleFixtureClick = (fixture) => {
-    setHomeTeam(fixture.teams.home.name);
-    setAwayTeam(fixture.teams.away.name);
-    setDate(new Date(fixture.fixture.date).toLocaleDateString());
-    setTime(new Date(fixture.fixture.date).toLocaleTimeString());
-    setReferee(fixture.fixture.referee);
-    setStadium(fixture.fixture.venue.name);
+    setHomeTeam(fixture.homeTeam);
+    setAwayTeam(fixture.awayTeam);
+    setDate(new Date(fixture.date).toLocaleDateString());
+    setTime(new Date(fixture.date).toLocaleTimeString());
+    setReferee(fixture.referee);
+    setStadium(fixture.stadium);
+    setFixtureId(fixture.fixtureId); // Save fixtureId
     setIsModalOpen(false);
   };
 
@@ -65,6 +67,7 @@ const AddPrediction = () => {
 
     try {
       await addDoc(collection(db, 'predictions'), {
+        fixtureId, // Save fixtureId to Firestore
         homeTeam,
         awayTeam,
         date,
@@ -84,6 +87,7 @@ const AddPrediction = () => {
       setTime('');
       setReferee('');
       setStadium('');
+      setFixtureId(''); // Reset fixtureId
       setPlans({ free: false, silver: false, gold: false, platinum: false });
     } catch (error) {
       console.error('Error adding prediction:', error);
@@ -117,14 +121,14 @@ const AddPrediction = () => {
               <hr className='my-3'/>
               {fixtures.map((fixture) => (
                 <div
-                  key={fixture.fixture.id}
+                  key={fixture.fixtureId}
                   className='mb-4 cursor-pointer px-5'
                   onClick={() => handleFixtureClick(fixture)}
                 >
                   <p>
-                    {fixture.teams.home.name} vs {fixture.teams.away.name}
+                    {fixture.homeTeam} vs {fixture.awayTeam}
                   </p>
-                  <p>Date: {new Date(fixture.fixture.date).toLocaleString()}</p>
+                  <p>Date: {new Date(fixture.date).toLocaleString()}</p>
                   <hr className='my-3'/>
                 </div>
               ))}

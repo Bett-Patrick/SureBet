@@ -41,7 +41,15 @@ export const fetchNextFixtures = async (teamName) => {
       },
     });
 
-    return response.data.response;
+    // Return fixtures with fixtureId and other relevant data
+    return response.data.response.map((fixture) => ({
+      fixtureId: fixture.fixture.id,
+      homeTeam: fixture.teams.home.name,
+      awayTeam: fixture.teams.away.name,
+      date: fixture.fixture.date,
+      referee: fixture.fixture.referee,
+      stadium: fixture.fixture.venue.name,
+    }));
   } catch (error) {
     console.error('Error fetching fixtures:', error);
     throw error;
