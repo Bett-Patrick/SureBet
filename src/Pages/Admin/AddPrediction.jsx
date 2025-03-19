@@ -23,8 +23,8 @@ const AddPrediction = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlePredictionChange = (e) => setPrediction(e.target.value);
-  const handleHomeTeamChange = (e) => setHomeTeam(e.target.value);
-  const handleAwayTeamChange = (e) => setAwayTeam(e.target.value);
+  // const handleHomeTeamChange = (e) => setHomeTeam(e.target.value);
+  // const handleAwayTeamChange = (e) => setAwayTeam(e.target.value);
   const handlePlanChange = (e) => {
     const { name, checked } = e.target;
     setPlans((prevPlans) => ({
@@ -144,66 +144,36 @@ const AddPrediction = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <h1 className='text-left mb-3 text-[#350200] text-lg'>
-          These fields will be Automatically filled Accordingly after searching fixture :
+          These fields will be Automatically filled Accordingly after searching fixture:
         </h1>
         <div className='flex flex-row gap-5 items-center'>
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Home Team'
-            type='text'
-            value={homeTeam}
-            onChange={handleHomeTeamChange}
-            required
-          />
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Home Team:</strong> {homeTeam || 'N/A'}
+          </p>
           <div>vs</div>
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Away Team'
-            type='text'
-            value={awayTeam}
-            onChange={handleAwayTeamChange}
-            required
-          />
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Away Team:</strong> {awayTeam || 'N/A'}
+          </p>
+        </div>
+        <div className='flex flex-row gap-5 items-center mt-5'>
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Date:</strong> {date || 'N/A'}
+          </p>
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Time:</strong> {time || 'N/A'}
+          </p>
+        </div>
+        <div className='flex flex-row gap-5 items-center mt-5'>
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Referee:</strong> {referee || 'N/A'}
+          </p>
+          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+            <strong>Stadium:</strong> {stadium || 'N/A'}
+          </p>
         </div>
         <div className='flex flex-row gap-5 items-center mt-5'>
           <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Date'
-            type='text'
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Time'
-            type='text'
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            required
-          />
-        </div>
-        <div className='flex flex-row gap-5 items-center mt-5'>
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Referee'
-            type='text'
-            value={referee}
-            onChange={(e) => setReferee(e.target.value)}
-            required
-          />
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
-            placeholder='Enter Stadium'
-            type='text'
-            value={stadium}
-            onChange={(e) => setStadium(e.target.value)}
-            required
-          />
-        </div>
-        <div className='flex flex-row gap-5 items-center mt-5'>
-          <input
-            className='border border-[#000435] rounded-3xl p-3'
+            className='border border-[#000435] rounded-3xl p-3 w-full'
             placeholder='Enter Prediction e.g 1X, 2, GG, Over 2.5'
             type='text'
             value={prediction}
