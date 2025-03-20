@@ -83,3 +83,67 @@ export const fetchNextFixtures = async (teamName) => {
     throw error;
   }
 };
+
+/**
+ * Fetches all prediction types from API-Football.
+ * @returns {Promise<Array>} An array of prediction types.
+ */
+export const fetchPredictionTypes = async () => {
+  try {
+    const response = await axios.get(`https://api-football-v1.p.rapidapi.com/v3/odds`, {
+      headers: {
+        'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+        'x-rapidapi-key': API_KEY,
+      },
+      params: {
+        fixture: 1125976, // Use a placeholder fixture ID since types are the same for all games
+      },
+    });
+
+    const bets = response.data.response[0]?.bookmakers[0]?.bets || [];
+    return bets.map((bet) => ({
+      value: bet.name,
+      label: bet.name,
+      values: bet.values, // Store the values for each type
+    }));
+  } catch (error) {
+    console.error('Error fetching prediction types:', error);
+    throw new Error('Failed to fetch prediction types.');
+  }
+};
+
+/**
+ * Fetches prediction values for a given prediction type.
+ * @param {Object} predictionType The selected prediction type.
+ * @returns {Array} An array of prediction values.
+ */
+export const fetchPredictionValues = (predictionType) => {
+  if (!predictionType?.values) {
+    return [];
+  }
+
+  return predictionType.values.map((value) => ({
+    value: value.value,
+    label: `${value.value} (${value.odd})`, // Include odds in the label
+  }));
+};
+
+const logPredictionTypesAndValues = async () => {
+  try {
+    // Fetch prediction types
+    const predictionTypes = await fetchPredictionTypes();
+    console.log('Prediction Types:', predictionTypes);
+
+    // Log each prediction type and its corresponding values
+    predictionTypes.forEach((type) => {
+      console.log(`Prediction Type: ${type.label}`);
+      const values = fetchPredictionValues(type);
+      console.log('Values:', values);
+    });
+  } catch (error) {
+    console.error('Error logging prediction types and values:', error);
+  }
+};
+
+// Call the function to log the data
+logPredictionTypesAndValues();

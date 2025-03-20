@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db, auth } from '../../Components/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { fetchNextFixtures } from '../../Utilities/footballApi'; // Import the fetch function
+import { fetchNextFixtures, fetchPredictionTypes, fetchPredictionValues } from '../../Utilities/footballApi'; // Import utility functions
+import Select from 'react-select'; // Import React-Select
 
 const AddPrediction = () => {
-  const [prediction, setPrediction] = useState('');
+  const [predictionType, setPredictionType] = useState(null); // Selected prediction type
+  const [predictionValue, setPredictionValue] = useState(null); // Selected prediction value
+  const [predictionTypes, setPredictionTypes] = useState([]); // All prediction types
+  const [predictionOptions, setPredictionOptions] = useState([]); // Prediction values for the selected type
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [referee, setReferee] = useState('');
   const [stadium, setStadium] = useState('');
-  const [fixtureId, setFixtureId] = useState(''); // Add fixtureId state
+  const [fixtureId, setFixtureId] = useState('');
   const [plans, setPlans] = useState({
     free: false,
     silver: false,
@@ -22,9 +26,21 @@ const AddPrediction = () => {
   const [fixtures, setFixtures] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handlePredictionChange = (e) => setPrediction(e.target.value);
-  // const handleHomeTeamChange = (e) => setHomeTeam(e.target.value);
-  // const handleAwayTeamChange = (e) => setAwayTeam(e.target.value);
+  // Fetch prediction types on component mount
+  useEffect(() => {
+    const loadPredictionTypes = async () => {
+      try {
+        const types = await fetchPredictionTypes();
+        setPredictionTypes(types);
+      } catch (error) {
+        console.error('Error fetching prediction types:', error);
+        alert('Failed to load prediction types.');
+      }
+    };
+
+    loadPredictionTypes();
+  }, []);
+
   const handlePlanChange = (e) => {
     const { name, checked } = e.target;
     setPlans((prevPlans) => ({
@@ -51,14 +67,22 @@ const AddPrediction = () => {
     setTime(new Date(fixture.date).toLocaleTimeString());
     setReferee(fixture.referee);
     setStadium(fixture.stadium);
-    setFixtureId(fixture.fixtureId); // Save fixtureId
+    setFixtureId(fixture.fixtureId);
     setIsModalOpen(false);
+  };
+
+  const handlePredictionTypeChange = (selectedOption) => {
+    setPredictionType(selectedOption);
+
+    // Fetch prediction values for the selected type
+    const values = fetchPredictionValues(selectedOption);
+    setPredictionOptions(values);
+    setPredictionValue(null); // Reset prediction value when type changes
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Ensure only an authenticated admin can add predictions
     const user = auth.currentUser;
     if (!user) {
       alert('You must be logged in to add a prediction.');
@@ -67,27 +91,29 @@ const AddPrediction = () => {
 
     try {
       await addDoc(collection(db, 'predictions'), {
-        fixtureId, // Save fixtureId to Firestore
+        fixtureId,
         homeTeam,
         awayTeam,
         date,
         time,
         referee,
         stadium,
-        prediction,
+        predictionType: predictionType?.value, // Save prediction type
+        predictionValue: predictionValue?.value, // Save prediction value
         plans,
-        createdBy: user.uid, // Track who added the prediction
+        createdBy: user.uid,
         createdAt: serverTimestamp(),
       });
       alert('Prediction added successfully!');
-      setPrediction('');
+      setPredictionType(null);
+      setPredictionValue(null);
       setHomeTeam('');
       setAwayTeam('');
       setDate('');
       setTime('');
       setReferee('');
       setStadium('');
-      setFixtureId(''); // Reset fixtureId
+      setFixtureId('');
       setPlans({ free: false, silver: false, gold: false, platinum: false });
     } catch (error) {
       console.error('Error adding prediction:', error);
@@ -118,7 +144,7 @@ const AddPrediction = () => {
           <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
             <div className='bg-white rounded shadow-lg w-80 h-fit py-2'>
               <h2 className='text-xl font-bold'>Next Three Fixtures</h2>
-              <hr className='my-3'/>
+              <hr className='my-3' />
               {fixtures.map((fixture) => (
                 <div
                   key={fixture.fixtureId}
@@ -129,7 +155,7 @@ const AddPrediction = () => {
                     {fixture.homeTeam} vs {fixture.awayTeam}
                   </p>
                   <p>Date: {new Date(fixture.date).toLocaleString()}</p>
-                  <hr className='my-3'/>
+                  <hr className='my-3' />
                 </div>
               ))}
               <button
@@ -172,13 +198,21 @@ const AddPrediction = () => {
           </p>
         </div>
         <div className='flex flex-row gap-5 items-center mt-5'>
-          <input
-            className='border border-[#000435] rounded-3xl p-3 w-full'
-            placeholder='Enter Prediction e.g 1X, 2, GG, Over 2.5'
-            type='text'
-            value={prediction}
-            onChange={handlePredictionChange}
-            required
+          <Select
+            className='w-full'
+            placeholder='Select Prediction Type'
+            options={predictionTypes}
+            value={predictionType}
+            onChange={handlePredictionTypeChange}
+            isSearchable
+          />
+          <Select
+            className='w-full'
+            placeholder='Select Prediction Value'
+            options={predictionOptions}
+            value={predictionValue}
+            onChange={(selectedOption) => setPredictionValue(selectedOption)}
+            isSearchable
           />
         </div>
 
