@@ -1,5 +1,4 @@
 import { useEffect, useState, useMemo } from "react";
-import { FaCalendarAlt } from "react-icons/fa";
 import { FiBarChart2 } from "react-icons/fi";
 import { db } from '../Components/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -11,6 +10,8 @@ const FreeTips = () => {
     const [error, setError] = useState(null);
     const [expandedOdds, setExpandedOdds] = useState(null); // Track which fixture's odds are expanded
     const [currentPage, setCurrentPage] = useState(1); // Track the current page for pagination
+    const [showAll, setShowAll] = useState(false); // Track whether to show all tips
+    const [filters, setFilters] = useState({ date: '', league: '', team: '' }); // Filters for tips
     const itemsPerPage = 5; // Number of items to display per page
 
     useEffect(() => {
@@ -49,12 +50,40 @@ const FreeTips = () => {
         setExpandedOdds(expandedOdds === id ? null : id); // Toggle the expanded odds for the clicked fixture
     };
 
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [name]: value,
+        }));
+        setShowAll(false); // Disable "Show All" mode when filters are changed
+    };
+
+    const handleShowAll = () => {
+        setFilters({ date: '', league: '', team: '' }); // Reset all filters
+        setShowAll(true); // Enable "Show All" mode
+    };
+
     // Memoize the paginated tips to avoid recalculating on every render
     const paginatedTips = useMemo(() => {
+        const filteredTips = freeTips.filter((tip) => {
+            const matchesDate = filters.date ? tip.date === filters.date : true;
+            const matchesLeague = filters.league ? tip.league === filters.league : true;
+            const matchesTeam = filters.team
+                ? tip.homeTeam.toLowerCase().includes(filters.team.toLowerCase()) ||
+                  tip.awayTeam.toLowerCase().includes(filters.team.toLowerCase())
+                : true;
+            return matchesDate && matchesLeague && matchesTeam;
+        });
+
+        if (showAll) {
+            return freeTips; // Show all tips if "Show All" is enabled
+        }
+
         const startIndex = 0; // Always start from the beginning
         const endIndex = currentPage * itemsPerPage; // Include all items up to the current page
-        return freeTips.slice(startIndex, endIndex);
-    }, [freeTips, currentPage]);
+        return filteredTips.slice(startIndex, endIndex);
+    }, [freeTips, filters, currentPage, showAll]);
 
     const loadMore = () => {
         if (currentPage * itemsPerPage < freeTips.length) {
@@ -74,13 +103,41 @@ const FreeTips = () => {
         <div className="free-tips-component">
             <h1 className="text-4xl font-bold">Explore Our <span className="text-amber-300">Free Tips</span></h1>
             <h1 className="text-md text-gray-400 italic my-4">Lorem ipsum dolor sit amet consectetur.</h1>
-            <div className="free-tips text-white rounded-md">
-                <div className="flex justify-center items-center w-[100%] px-5 py-5 mt-5 text-white mb-[1px] gap-40 mx-auto bg-[#000435] opacity-[93%]">
-                    <button className="flex justify-start items-center gap-2 text-amber-300 w-30 rounded-md px-3 py-1 font-bold hover:bg-white hover:text-[#000435]"><FaCalendarAlt className="text-amber-300"/>Daily</button>
-                    <button className="flex justify-start items-center gap-2 text-amber-300 w-30 rounded-md px-3 py-1 font-bold hover:bg-white hover:text-[#000435]"><FaCalendarAlt className="text-amber-300"/>Weekend</button>
-                    <button className="flex justify-start items-center gap-2 text-amber-300 w-30 rounded-md px-3 py-1 font-bold hover:bg-white hover:text-[#000435]"><FaCalendarAlt className="text-amber-300"/>Weekly</button>
-                </div>
 
+            {/* Filters Section */}
+            <div className="filters flex flex-row gap-5 my-5">
+                <input
+                    type="date"
+                    name="date"
+                    value={filters.date}
+                    onChange={handleFilterChange}
+                    className="border p-2 rounded-md"
+                />
+                <input
+                    type="text"
+                    name="league"
+                    placeholder="Filter by league"
+                    value={filters.league}
+                    onChange={handleFilterChange}
+                    className="border p-2 rounded-md"
+                />
+                <input
+                    type="text"
+                    name="team"
+                    placeholder="Filter by team"
+                    value={filters.team}
+                    onChange={handleFilterChange}
+                    className="border p-2 rounded-md"
+                />
+                <button
+                    onClick={handleShowAll}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold hover:bg-blue-700"
+                >
+                    Show All Tips
+                </button>
+            </div>
+
+            <div className="free-tips text-white rounded-md">
                 {paginatedTips.length === 0 ? (
                     <p>No Free tips available.</p>
                 ) : (
@@ -93,7 +150,9 @@ const FreeTips = () => {
                                     <div className="border w-[100px] my-2 rounded-md text-center">{tip.awayTeam}</div>
                                     <div className="border w-[100px] my-2 rounded-md text-center">{tip.predictionType}</div>
                                     <div className="border w-[100px] my-2 rounded-md text-center">{tip.predictionValue}</div>
-                                    <div className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer">
+                                    <div
+                                        className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"
+                                    >
                                         <FiBarChart2 className="text-amber-300 text-2xl" />
                                         <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">
                                             Statistics
@@ -141,7 +200,7 @@ const FreeTips = () => {
                         ))}
                     </ul>
                 )}
-                {currentPage * itemsPerPage < freeTips.length && (
+                {!showAll && currentPage * itemsPerPage < freeTips.length && (
                     <button
                         onClick={loadMore}
                         className="bg-amber-300 text-black px-4 py-2 rounded-md font-bold hover:bg-white hover:text-[#000435] mt-4"

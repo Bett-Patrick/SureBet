@@ -128,22 +128,62 @@ export const fetchPredictionValues = (predictionType) => {
   }));
 };
 
-const logPredictionTypesAndValues = async () => {
-  try {
-    // Fetch prediction types
-    const predictionTypes = await fetchPredictionTypes();
-    console.log('Prediction Types:', predictionTypes);
 
-    // Log each prediction type and its corresponding values
-    predictionTypes.forEach((type) => {
-      console.log(`Prediction Type: ${type.label}`);
-      const values = fetchPredictionValues(type);
-      console.log('Values:', values);
-    });
+export const fetchFixtureStatistics = async (fixtureId, homeTeamId, awayTeamId, leagueId, season) => {
+  try {
+      const [headToHeadResponse, homeTeamStatsResponse, awayTeamStatsResponse, standingsResponse, injuriesResponse] = await Promise.all([
+          fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures/headtohead?h2h=${homeTeamId}-${awayTeamId}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+              },
+          }),
+          fetch(`https://api-football-v1.p.rapidapi.com/v3/teams/statistics?team=${homeTeamId}&league=${leagueId}&season=${season}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+              },
+          }),
+          fetch(`https://api-football-v1.p.rapidapi.com/v3/teams/statistics?team=${awayTeamId}&league=${leagueId}&season=${season}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+              },
+          }),
+          fetch(`https://api-football-v1.p.rapidapi.com/v3/standings?league=${leagueId}&season=${season}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+              },
+          }),
+          fetch(`https://api-football-v1.p.rapidapi.com/v3/injuries?team=${homeTeamId}&season=${season}`, {
+              method: 'GET',
+              headers: {
+                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
+              },
+          }),
+      ]);
+
+      const headToHead = await headToHeadResponse.json();
+      const homeTeamStats = await homeTeamStatsResponse.json();
+      const awayTeamStats = await awayTeamStatsResponse.json();
+      const standings = await standingsResponse.json();
+      const injuries = await injuriesResponse.json();
+
+      return {
+          headToHead: headToHead.response || [],
+          homeTeamStats: homeTeamStats.response || {},
+          awayTeamStats: awayTeamStats.response || {},
+          standings: standings.response || [],
+          injuries: injuries.response || [],
+      };
   } catch (error) {
-    console.error('Error logging prediction types and values:', error);
+      console.error('Error fetching fixture statistics:', error);
+      throw error;
   }
 };
-
-// Call the function to log the data
-logPredictionTypesAndValues();
