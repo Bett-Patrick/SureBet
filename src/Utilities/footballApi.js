@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
 const BASE_URL = 'https://api-football-v1.p.rapidapi.com/v3';
 
-// Function to fetch team ID
+// Function to fetch team ID:
 const fetchTeamId = async (teamName) => {
   try {
     const response = await axios.get(`${BASE_URL}/teams`, {
@@ -25,7 +25,35 @@ const fetchTeamId = async (teamName) => {
   }
 };
 
-// Function to fetch next 3 fixtures
+// Function to fetch odds using fixtureId:
+export const fetchOddsByFixtureId = async (fixtureId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/odds`, {
+      headers: {
+        'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+        'x-rapidapi-key': API_KEY,
+      },
+      params: {
+        fixture: fixtureId, // Use fixtureId to fetch odds
+      },
+    });
+
+    if (response.data.response.length > 0) {
+      // Extract and return odds data
+      return response.data.response[0].bookmakers.map((bookmaker) => ({
+        bookmaker: bookmaker.name,
+        odds: bookmaker.bets[0]?.values || [], // Odds values for the first bet type
+      }));
+    } else {
+      return "No odds available";
+    }
+  } catch (error) {
+    console.error(`Error fetching odds for fixtureId ${fixtureId}:`, error);
+    throw error;
+  }
+};
+
+// Function to fetch next 3 fixtures by team name:
 export const fetchNextFixtures = async (teamName) => {
   try {
     const teamId = await fetchTeamId(teamName); // Fetch team ID first

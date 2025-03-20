@@ -3,6 +3,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { FiBarChart2 } from "react-icons/fi";
 import { db } from '../Components/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { fetchOddsByFixtureId } from '../Utilities/footballApi'; // Import the utility function
 
 const FreeTips = () => {
     const [freeTips, setFreeTips] = useState([]);
@@ -16,7 +17,21 @@ const FreeTips = () => {
                 const q = query(collection(db, 'predictions'), where('plans.free', '==', true));
                 const querySnapshot = await getDocs(q);
                 const tips = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setFreeTips(tips);
+
+                // Fetch odds for each tip using fixtureId
+                const tipsWithOdds = await Promise.all(
+                    tips.map(async (tip) => {
+                        try {
+                            const odds = await fetchOddsByFixtureId(tip.fixtureId); // Fetch odds using fixtureId
+                            return { ...tip, odds };
+                        } catch (err) {
+                            console.error(`Failed to fetch odds for fixtureId ${tip.fixtureId}:`, err);
+                            return { ...tip, odds: "No odds available" }; // Default to "No odds available" if odds fetch fails
+                        }
+                    })
+                );
+
+                setFreeTips(tipsWithOdds);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -59,6 +74,20 @@ const FreeTips = () => {
                                     <div className="border w-[100px] my-2 rounded-md">{tip.prediction}</div>
                                     <div className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"><FiBarChart2 className="text-amber-300 text-2xl"/> <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">Statistics</span></div>
                                 </aside>
+                                <div className="odds text-center text-gray-300 mt-2">
+                                    <span className="font-bold">Odds:</span>
+                                    {Array.isArray(tip.odds) ? (
+                                        <ul>
+                                            {tip.odds.map((odd, index) => (
+                                                <li key={index}>
+                                                    {odd.bookmaker}: {odd.odds.map(o => `${o.value} (${o.odd})`).join(', ')}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <span>{tip.odds}</span>
+                                    )}
+                                </div>
                                 <hr />
                             </li>
                         ))}
