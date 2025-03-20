@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FiBarChart2 } from "react-icons/fi";
 import { db } from '../Components/firebase';
@@ -10,6 +10,8 @@ const FreeTips = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [expandedOdds, setExpandedOdds] = useState(null); // Track which fixture's odds are expanded
+    const [currentPage, setCurrentPage] = useState(1); // Track the current page for pagination
+    const itemsPerPage = 5; // Number of items to display per page
 
     useEffect(() => {
         const fetchFreeTips = async () => {
@@ -47,6 +49,19 @@ const FreeTips = () => {
         setExpandedOdds(expandedOdds === id ? null : id); // Toggle the expanded odds for the clicked fixture
     };
 
+    // Memoize the paginated tips to avoid recalculating on every render
+    const paginatedTips = useMemo(() => {
+        const startIndex = 0; // Always start from the beginning
+        const endIndex = currentPage * itemsPerPage; // Include all items up to the current page
+        return freeTips.slice(startIndex, endIndex);
+    }, [freeTips, currentPage]);
+
+    const loadMore = () => {
+        if (currentPage * itemsPerPage < freeTips.length) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -66,11 +81,11 @@ const FreeTips = () => {
                     <button className="flex justify-start items-center gap-2 text-amber-300 w-30 rounded-md px-3 py-1 font-bold hover:bg-white hover:text-[#000435]"><FaCalendarAlt className="text-amber-300"/>Weekly</button>
                 </div>
 
-                {freeTips.length === 0 ? (
+                {paginatedTips.length === 0 ? (
                     <p>No Free tips available.</p>
                 ) : (
                     <ul className="tips-container">
-                        {freeTips.map(tip => (
+                        {paginatedTips.map(tip => (
                             <li key={tip.id} className="tip w-full mx-auto bg-[#000435] pt-2 mb-4 rounded-md shadow-lg">
                                 <aside className="prediction flex flex-row gap-11 justify-center items-center">
                                     <div className="border w-[100px] my-2 rounded-md text-center">{tip.homeTeam}</div>
@@ -109,8 +124,8 @@ const FreeTips = () => {
                                                             <br />
                                                             <span>Away: {odd.odds.find(o => o.value === "Away")?.odd || "N/A"}</span>
                                                             <br />
-                                                            <span className="text-amber-300 font-bold">
-                                                                {tip.predictionValue} Odds: {odd.odds.find(o => o.value === tip.predictionValue)?.odd || "N/A"}
+                                                            <span className="text-green-400 font-bold">
+                                                                Prediction ({tip.predictionValue}): {odd.odds.find(o => o.value === tip.predictionValue)?.odd || "N/A"}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -125,6 +140,14 @@ const FreeTips = () => {
                             </li>
                         ))}
                     </ul>
+                )}
+                {currentPage * itemsPerPage < freeTips.length && (
+                    <button
+                        onClick={loadMore}
+                        className="bg-amber-300 text-black px-4 py-2 rounded-md font-bold hover:bg-white hover:text-[#000435] mt-4"
+                    >
+                        Load More
+                    </button>
                 )}
             </div>
         </div>
