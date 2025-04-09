@@ -18,32 +18,55 @@ const NavBar = () => {
     };
 
   return (
-    <header className="flex justify-center items-center bg-[#000435] h-30 p-5">
-        <nav>
-            <div className="flex justify-between items-center w-[50%] mx-2 text-yellow-400 ml-auto gap-20 font-medium">
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/predictions">Predictions</NavLink>
-                {!user ? (
-                    <>
-                    <NavLink to="/register" className="bg-white text-[#000435] px-2 w-30 text-xl rounded-lg border-2 border-amber-300 shadow-[2px_2px_5px_grey]" >Register</NavLink>
-                    <NavLink to="/login" className="bg-white text-[#000435] px-2 w-30 text-xl rounded-lg border-2 border-amber-300 shadow-[2px_2px_5px_grey]" >Login</NavLink>
-                    </>
-                ):(
-                    <>
-                        {role === "admin" && <NavLink to="/add-prediction">Add Prediction</NavLink>}
-                        {role === "super-admin" && <NavLink to="/super-admin">Admin Panel</NavLink>}
-                        <NavLink to="/profile">Profile</NavLink>
-                        <button
-                            onClick={handleLogout}
-                            className="bg-red-600 text-white px-2 py-1 rounded-md"
-                        >
-                            Logout
-                        </button>
-                    </>
-                )}
-            </div>
-        </nav>
-    </header>
+<header className="bg-[#000435] w-full px-4 py-3">
+  <nav className="flex items-center justify-between max-w-6xl mx-auto text-yellow-400 font-medium overflow-x-auto whitespace-nowrap">
+
+    {/* Left: Nav Links */}
+    <div className="flex flex-wrap items-center gap-3 md:gap-6">
+      <NavLink to="/" className="text-sm md:text-base">Home</NavLink>
+      <NavLink to="/predictions" className="text-sm md:text-base">Predictions</NavLink>
+
+      {user && role === "admin" && (
+        <NavLink to="/add-prediction" className="text-sm md:text-base">Add Prediction</NavLink>
+      )}
+      {user && role === "super-admin" && (
+        <NavLink to="/super-admin" className="text-sm md:text-base">Admin Panel</NavLink>
+      )}
+      {user && (
+        <NavLink to="/profile" className="text-sm md:text-base">Profile</NavLink>
+      )}
+    </div>
+
+    {/* Right: Auth Buttons */}
+    <div className="flex flex-wrap items-center gap-3 ml-4">
+      {!user ? (
+        <>
+          <NavLink
+            to="/register"
+            className="bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md"
+          >
+            Register
+          </NavLink>
+          <NavLink
+            to="/login"
+            className="bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md"
+          >
+            Login
+          </NavLink>
+        </>
+      ) : (
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-4 py-1 text-sm md:text-base rounded-md"
+        >
+          Logout
+        </button>
+      )}
+    </div>
+
+  </nav>
+</header>
+
   )
 }
 

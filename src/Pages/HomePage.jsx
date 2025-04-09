@@ -35,7 +35,7 @@ const HomePage = () => {
     ); // Show a loading indicator while determining auth state
   }
   return (
-    <div className='home-page relative'>
+    <div className='home-page relative w-[100%] sm:w-[100%] md:w-[100%]'>
       <div className="h-[500px] mb-30 w-full relative">
         {/* Background Image with Overlay */}
         <div 
@@ -46,8 +46,12 @@ const HomePage = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center h-full text-center">
-          <h1 className="text-4xl font-bold text-amber-300">WIN MORE WITH EXPERT FOOTBALL PREDICTIONS</h1>
-          <h1 className="text-5xl font-bold my-3 text-white">& BETTING TIPS</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-amber-300">
+            WIN MORE WITH EXPERT FOOTBALL PREDICTIONS
+          </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold my-3 text-white">
+            & BETTING TIPS
+          </h1>
 
           <div className="flex justify-center items-center gap-10 mt-5 text-2xl">
             <div className="flex justify-center items-center gap-3 text-white">

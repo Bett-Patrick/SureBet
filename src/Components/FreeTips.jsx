@@ -3,6 +3,10 @@ import { FiBarChart2 } from "react-icons/fi";
 import { db } from '../Components/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { fetchOddsByFixtureId } from '../Utilities/footballApi'; // Import the utility function
+import { MdStadium } from "react-icons/md";
+import { GiWhistle } from "react-icons/gi";
+import { MdOutlineDateRange } from "react-icons/md";
+import { IoIosTimer } from "react-icons/io";
 
 const FreeTips = () => {
     const [freeTips, setFreeTips] = useState([]);
@@ -100,12 +104,12 @@ const FreeTips = () => {
     }
 
     return (
-        <div className="free-tips-component">
+        <div className="free-tips-component p-5">
             <h1 className="text-4xl font-bold">Explore Our <span className="text-amber-300">Free Tips</span></h1>
             <h1 className="text-md text-gray-400 italic my-4">Lorem ipsum dolor sit amet consectetur.</h1>
 
             {/* Filters Section */}
-            <div className="filters flex flex-row gap-5 my-5">
+            <div className="filters flex flex-row gap-5 m-5">
                 <input
                     type="date"
                     name="date"
@@ -131,9 +135,9 @@ const FreeTips = () => {
                 />
                 <button
                     onClick={handleShowAll}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md font-bold hover:bg-blue-700"
+                    className="bg-slate-300 text-gray-700 px-4 py-2 rounded-md font-bold hover:bg-slate-400 hover:text-amber-50 active:bg-amber-400 focus:bg-amber-400"
                 >
-                    Show All Tips
+                    All
                 </button>
             </div>
 
@@ -144,26 +148,65 @@ const FreeTips = () => {
                     <ul className="tips-container">
                         {paginatedTips.map(tip => (
                             <li key={tip.id} className="tip w-full mx-auto bg-[#000435] pt-2 mb-4 rounded-md shadow-lg">
-                                <aside className="prediction flex flex-row gap-11 justify-center items-center">
-                                    <div className="border w-[100px] my-2 rounded-md text-center">{tip.homeTeam}</div>
-                                    <div className="">vs</div>
-                                    <div className="border w-[100px] my-2 rounded-md text-center">{tip.awayTeam}</div>
-                                    <div className="border w-[100px] my-2 rounded-md text-center">{tip.predictionType}</div>
-                                    <div className="border w-[100px] my-2 rounded-md text-center">{tip.predictionValue}</div>
-                                    <div
-                                        className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"
-                                    >
-                                        <FiBarChart2 className="text-amber-300 text-2xl" />
-                                        <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">
-                                            Statistics
-                                        </span>
+                                <aside className="prediction flex flex-col justify-center items-start px-5">
+                                    <div className="flex flex-row justify-between items-center w-full">
+                                        <div className="fixture_time flex justify-center items-center gap-3">
+                                            <p className="flex gap-1 justify-center items-center"><MdOutlineDateRange className="text-amber-400"/> {tip.date || 'N/A'}</p>
+                                            <div className="rounded-full w-[5px] h-[5px] bg-slate-100 "></div>
+                                            <p className="flex gap-1 justify-center items-center"><IoIosTimer className="text-amber-400"/> {tip.time || 'N/A'}</p>
+                                        </div>
+                                        <div className="league flex gap-3">
+                                            <p><strong>League:</strong> {tip.league || 'N/A'}</p>
+                                            <p><strong>Country:</strong> {tip.country || 'N/A'}</p>
+                                        </div>    
+                                        
                                     </div>
-                                    <button
-                                        onClick={() => toggleOdds(tip.id)}
-                                        className="bg-amber-300 text-black px-3 py-1 rounded-md font-bold hover:bg-white hover:text-[#000435]"
-                                    >
-                                        {expandedOdds === tip.id ? "Hide Odds" : "Show Odds"}
-                                    </button>
+                                    <hr className="w-full mx-auto" />
+                                    <div className="flex gap-5 justify-center items-baseline">
+                                        <div className="border w-fit max-w-[200px] px-2 rounded-md text-center mt-auto my-2 bg-slate-100 text-black text-xl font-mono">{tip.homeTeam}</div>
+                                        <div className="mt-auto mb-2 font-mono">vs</div>
+                                        <div className="border w-fit px-2 rounded-md text-center mt-auto my-2 bg-slate-100 text-black text-xl font-mono">{tip.awayTeam}</div>
+                                    
+                                        <div className="flex flex-col w-fit my-2 rounded-md text-center mx-10">
+                                            <strong className="text-amber-400">Prediction Type:</strong> {tip.predictionType}
+                                        </div>
+                                        <div className="flex flex-col w-fit my-2 rounded-md text-center">
+                                            <strong className="text-amber-400">Prediction:</strong> {tip.predictionValue}
+                                        </div>
+                                        {/* <div className="flex flex-col w-fit my-2 rounded-md text-center">
+                                            <strong className="text-amber-400">Status:</strong> Not Started
+                                        </div>
+                                        <div className="flex flex-col w-fit my-2 rounded-md text-center">
+                                            <strong className="text-amber-400">Result:</strong> 2:1
+                                        </div>
+                                        <div className="flex justify-end w-fit my-2 rounded-md text-center">
+                                            <strong className="text-amber-400">won</strong>
+                                        </div> */}
+                                    </div>
+
+                                    <div className="flex flex-row w-full mt-5 justify-between">
+                                        <div className="match-details flex flex-row gap-10">
+                                            <p className="flex gap-1 justify-center items-center"><MdStadium className="text-amber-400"/> {tip.stadium || 'N/A'}</p>
+                                            <p className="flex gap-1 justify-center items-center"><GiWhistle className="text-amber-400"/> {tip.referee || 'N/A'}</p>
+                                        </div>
+                                        <div className="flex flex-row gap-5">
+                                            <div
+                                                className="statistics flex justify-baseline gap-1 text-amber-300 border-2 border-transparent cursor-pointer"
+                                            >
+                                                <FiBarChart2 className="text-amber-300 text-2xl" />
+                                                <span className="pt-0.5 hover:text-white text-md tracking-widest font-mono hover:font-extrabold hover:border-b-2">
+                                                    Statistics
+                                                </span>
+                                            </div>
+                                            <button
+                                                onClick={() => toggleOdds(tip.id)}
+                                                className="bg-amber-300 text-black px-3 py-1 rounded-md font-bold hover:bg-white hover:text-[#000435]"
+                                            >
+                                                {expandedOdds === tip.id ? "Hide Odds" : "Show Odds"}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
                                 </aside>
                                 {expandedOdds === tip.id && (
                                     <div className="odds text-center text-gray-300 mt-2 bg-[#001f3f] p-4 rounded-md">

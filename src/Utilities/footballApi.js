@@ -85,18 +85,23 @@ export const fetchNextFixtures = async (teamName) => {
 };
 
 /**
- * Fetches all prediction types from API-Football.
+ * Fetches prediction types for a specific fixture.
+ * @param {number} fixtureId The ID of the selected fixture.
  * @returns {Promise<Array>} An array of prediction types.
  */
-export const fetchPredictionTypes = async () => {
+export const fetchPredictionTypes = async (fixtureId) => {
+  if (!fixtureId) {
+    throw new Error('Fixture ID is required to fetch prediction types.');
+  }
+
   try {
-    const response = await axios.get(`https://api-football-v1.p.rapidapi.com/v3/odds`, {
+    const response = await axios.get(`${BASE_URL}/odds`, {
       headers: {
         'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
         'x-rapidapi-key': API_KEY,
       },
       params: {
-        fixture: 1125976, // Use a placeholder fixture ID since types are the same for all games
+        fixture: fixtureId, // Fetch prediction types for the selected fixture
       },
     });
 
@@ -107,7 +112,7 @@ export const fetchPredictionTypes = async () => {
       values: bet.values, // Store the values for each type
     }));
   } catch (error) {
-    console.error('Error fetching prediction types:', error);
+    console.error(`Error fetching prediction types for fixture ${fixtureId}:`, error);
     throw new Error('Failed to fetch prediction types.');
   }
 };
@@ -126,64 +131,4 @@ export const fetchPredictionValues = (predictionType) => {
     value: value.value,
     label: `${value.value} (${value.odd})`, // Include odds in the label
   }));
-};
-
-
-export const fetchFixtureStatistics = async (fixtureId, homeTeamId, awayTeamId, leagueId, season) => {
-  try {
-      const [headToHeadResponse, homeTeamStatsResponse, awayTeamStatsResponse, standingsResponse, injuriesResponse] = await Promise.all([
-          fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures/headtohead?h2h=${homeTeamId}-${awayTeamId}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
-              },
-          }),
-          fetch(`https://api-football-v1.p.rapidapi.com/v3/teams/statistics?team=${homeTeamId}&league=${leagueId}&season=${season}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
-              },
-          }),
-          fetch(`https://api-football-v1.p.rapidapi.com/v3/teams/statistics?team=${awayTeamId}&league=${leagueId}&season=${season}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
-              },
-          }),
-          fetch(`https://api-football-v1.p.rapidapi.com/v3/standings?league=${leagueId}&season=${season}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
-              },
-          }),
-          fetch(`https://api-football-v1.p.rapidapi.com/v3/injuries?team=${homeTeamId}&season=${season}`, {
-              method: 'GET',
-              headers: {
-                  'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                  'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY',
-              },
-          }),
-      ]);
-
-      const headToHead = await headToHeadResponse.json();
-      const homeTeamStats = await homeTeamStatsResponse.json();
-      const awayTeamStats = await awayTeamStatsResponse.json();
-      const standings = await standingsResponse.json();
-      const injuries = await injuriesResponse.json();
-
-      return {
-          headToHead: headToHead.response || [],
-          homeTeamStats: homeTeamStats.response || {},
-          awayTeamStats: awayTeamStats.response || {},
-          standings: standings.response || [],
-          injuries: injuries.response || [],
-      };
-  } catch (error) {
-      console.error('Error fetching fixture statistics:', error);
-      throw error;
-  }
 };

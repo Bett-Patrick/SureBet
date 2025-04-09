@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { db, auth } from '../../Components/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { fetchNextFixtures, fetchPredictionTypes, fetchPredictionValues } from '../../Utilities/footballApi'; // Import utility functions
@@ -26,21 +26,6 @@ const AddPrediction = () => {
   const [fixtures, setFixtures] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fetch prediction types on component mount
-  useEffect(() => {
-    const loadPredictionTypes = async () => {
-      try {
-        const types = await fetchPredictionTypes();
-        setPredictionTypes(types);
-      } catch (error) {
-        console.error('Error fetching prediction types:', error);
-        alert('Failed to load prediction types.');
-      }
-    };
-
-    loadPredictionTypes();
-  }, []);
-
   const handlePlanChange = (e) => {
     const { name, checked } = e.target;
     setPlans((prevPlans) => ({
@@ -60,7 +45,7 @@ const AddPrediction = () => {
     }
   };
 
-  const handleFixtureClick = (fixture) => {
+  const handleFixtureClick = async (fixture) => {
     setHomeTeam(fixture.homeTeam);
     setAwayTeam(fixture.awayTeam);
     setDate(new Date(fixture.date).toLocaleDateString());
@@ -68,6 +53,16 @@ const AddPrediction = () => {
     setReferee(fixture.referee);
     setStadium(fixture.stadium);
     setFixtureId(fixture.fixtureId);
+
+    try {
+      // Fetch prediction types for the selected fixture
+      const types = await fetchPredictionTypes(fixture.fixtureId);
+      setPredictionTypes(types);
+    } catch (error) {
+      console.error('Error fetching prediction types:', error);
+      alert('Failed to load prediction types.');
+    }
+
     setIsModalOpen(false);
   };
 

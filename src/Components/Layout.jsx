@@ -4,9 +4,9 @@ import NavBar from "./NavBar"
 
 const Layout = () => {
   return (
-    <div>
+    <div className="w-full h-fit">
       <NavBar />
-      <main>
+      <main className="w-full h-fit">
         <Outlet />
       </main>
 
