@@ -143,7 +143,7 @@ const FreeTips = () => {
 
             <div className="free-tips text-white rounded-md">
                 {paginatedTips.length === 0 ? (
-                    <p>No Free tips available.</p>
+                    <p className="text-black">No Free tips available.</p>
                 ) : (
                     <ul className="tips-container">
                         {paginatedTips.map(tip => (

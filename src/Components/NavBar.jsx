@@ -19,37 +19,32 @@ const NavBar = () => {
 
   return (
 <header className="bg-[#000435] w-full px-4 py-3">
-  <nav className="flex items-center justify-between max-w-6xl mx-auto text-yellow-400 font-medium overflow-x-auto whitespace-nowrap">
+  {/* Top Row: Logo and Auth Buttons */}
+  <div className="flex items-center justify-between w-full mx-auto text-yellow-400 font-medium whitespace-nowrap gap-3">
+    {/* Logo */}
+    <div className="text-lg font-bold">SureBet</div>
 
-    {/* Left: Nav Links */}
-    <div className="flex flex-wrap items-center gap-3 md:gap-6">
-      <NavLink to="/" className="text-sm md:text-base">Home</NavLink>
-      <NavLink to="/predictions" className="text-sm md:text-base">Predictions</NavLink>
-
-      {user && role === "admin" && (
-        <NavLink to="/add-prediction" className="text-sm md:text-base">Add Prediction</NavLink>
-      )}
-      {user && role === "super-admin" && (
-        <NavLink to="/super-admin" className="text-sm md:text-base">Admin Panel</NavLink>
-      )}
-      {user && (
-        <NavLink to="/profile" className="text-sm md:text-base">Profile</NavLink>
-      )}
-    </div>
-
-    {/* Right: Auth Buttons */}
-    <div className="flex flex-wrap items-center gap-3 ml-4">
+    {/* Auth Buttons */}
+    <div className="flex items-center gap-3">
       {!user ? (
         <>
           <NavLink
             to="/register"
-            className="bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md"
+            className={({ isActive }) =>
+              `bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md ${
+                isActive ? "border-b-2 border-red-500" : ""
+              }`
+            }
           >
             Register
           </NavLink>
           <NavLink
             to="/login"
-            className="bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md"
+            className={({ isActive }) =>
+              `bg-white text-[#000435] px-3 py-1 text-sm md:text-base rounded-lg border-2 border-amber-300 shadow-md ${
+                isActive ? "border-b-2 border-red-500" : ""
+              }`
+            }
           >
             Login
           </NavLink>
@@ -63,10 +58,60 @@ const NavBar = () => {
         </button>
       )}
     </div>
+  </div>
 
+  {/* Bottom Row: Navigation Links */}
+  <nav className="flex items-center justify-center max-w-6xl mx-auto text-yellow-400 font-medium whitespace-nowrap gap-3 mt-3">
+    <aside className={`${user ? "flex w-full items-center justify-between" : "flex items-center justify-center"} gap-3 md:gap-6`}>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `text-sm md:text-base ${isActive ? "border-b-2 border-red-500 bg-gray-950 px-2 pt-4" : ""}`
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/predictions"
+        className={({ isActive }) =>
+          `text-sm md:text-base ${isActive ? "border-b-2 border-red-500 bg-gray-950 px-2 pt-4" : ""}`
+        }
+      >
+        Predictions
+      </NavLink>
+      {user && role === "admin" && (
+        <NavLink
+          to="/add-prediction"
+          className={({ isActive }) =>
+            `text-sm md:text-base ${isActive ? "border-b-2 border-red-500 bg-gray-950 px-2 pt-4" : ""}`
+          }
+        >
+          Add Prediction
+        </NavLink>
+      )}
+      {user && role === "super-admin" && (
+        <NavLink
+          to="/super-admin"
+          className={({ isActive }) =>
+            `text-sm md:text-base ${isActive ? "border-b-2 border-red-500 bg-gray-950 px-2 pt-4" : ""}`
+          }
+        >
+          Admin Panel
+        </NavLink>
+      )}
+      {user && (
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `text-sm md:text-base ${isActive ? "border-b-2 border-red-500 bg-gray-950 px-2 pt-4" : ""}`
+          }
+        >
+          Profile
+        </NavLink>
+      )}
+    </aside>
   </nav>
 </header>
-
   )
 }
 
