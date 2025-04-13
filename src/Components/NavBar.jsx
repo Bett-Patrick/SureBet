@@ -62,7 +62,7 @@ const NavBar = () => {
 
   {/* Bottom Row: Navigation Links */}
   <nav className="flex items-center justify-center max-w-6xl mx-auto text-yellow-400 font-medium whitespace-nowrap gap-3 mt-3">
-    <aside className={`${user ? "flex w-full items-center justify-between" : "flex items-center justify-center"} gap-3 md:gap-6`}>
+    <aside className={`${user ? "flex w-full items-center justify-between md:justify-around md:w-[60%]" : "flex items-center justify-center"} gap-3 md:gap-6`}>
       <NavLink
         to="/"
         className={({ isActive }) =>
