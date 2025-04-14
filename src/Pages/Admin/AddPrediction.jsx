@@ -34,6 +34,8 @@ const AddPrediction = () => {
     }));
   };
 
+  // Function to fetch fixtures based on team name
+  
   const handleSearch = async () => {
     try {
       const fixturesData = await fetchNextFixtures(teamName);
@@ -45,6 +47,8 @@ const AddPrediction = () => {
     }
   };
 
+  // Function to handle fixture selection
+  // This function is called when a fixture is clicked in the modal
   const handleFixtureClick = async (fixture) => {
     setHomeTeam(fixture.homeTeam);
     setAwayTeam(fixture.awayTeam);
@@ -117,24 +121,36 @@ const AddPrediction = () => {
   };
 
   return (
-    <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-[5%] border w-[90%] rounded-md'>
+    <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-10 border w-[90%] rounded-md'>
       <h1 className='text-4xl font-bold mt-5'>Add Prediction</h1>
       <hr className='h-2 mx-auto opacity-20 my-2' />
-      <div className='flex flex-row gap-5 w-[90%] items-center justify-center my-5 mx-auto'>
-        <input
-          type='text'
-          placeholder='Enter team name to search fixture...'
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-          className='border p-2 rounded-xl text-sm md:text-base shadow-md shadow-gray-400 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal hover:overflow-visible hover:z-10 relative'
-        />
+
+      {/* search for fixture */}
+      <div className='flex flex-row w-[90%] items-center justify-center my-5 mx-auto'>
+        <div className="relative group w-full md:w-[300px]">
+          <input
+            type="text"
+            placeholder="Enter team name to search fixture"
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
+            className="border p-2 rounded-l-lg text-sm md:text-base shadow-md shadow-gray-400 truncate w-full"
+          />
+
+          {/* Tooltip - shows either placeholder or typed value */}
+          <span className="absolute left-0 -top-10 bg-black text-white text-xs p-2 rounded shadow-lg z-50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none max-w-xs break-words">
+            {teamName || "Enter team name to search fixture"}
+          </span>
+        </div>
+
         <button
           onClick={handleSearch}
-          className='bg-blue-950 text-white px-4 py-2 font-semibold rounded-md text-center'
+          className="bg-blue-950 text-white px-4 py-2 font-semibold rounded-r-md ml-2 text-center"
         >
           Search
         </button>
 
+
+        {/* display matching fixtures */}
         {isModalOpen && fixtures.length > 0 && (
           <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
             <div className='bg-white rounded shadow-lg w-80 h-fit py-2'>
@@ -168,31 +184,31 @@ const AddPrediction = () => {
           These fields will be Automatically filled Accordingly after searching fixture:
         </h1>
         <div className='flex flex-row gap-5 items-center'>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Home Team:</strong> {homeTeam || 'N/A'}
           </p>
           <div>vs</div>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Away Team:</strong> {awayTeam || 'N/A'}
           </p>
         </div>
         <div className='flex flex-row gap-5 items-center mt-5'>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Date:</strong> {date || 'N/A'}
           </p>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Time:</strong> {time || 'N/A'}
           </p>
         </div>
         <div className='flex flex-row gap-5 items-center mt-5'>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Referee:</strong> {referee || 'N/A'}
           </p>
-          <p className='border border-[#000435] rounded-3xl p-3 w-full'>
+          <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Stadium:</strong> {stadium || 'N/A'}
           </p>
         </div>
-        <div className='flex flex-row gap-5 items-center mt-5'>
+        <div className='flex flex-row gap-2 items-center mt-5'>
           <Select
             className='w-full'
             placeholder='Select Prediction Type'

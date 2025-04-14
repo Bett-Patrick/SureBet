@@ -73,3 +73,12 @@ titick{
   font-weight: bold;
   position: absolute;
 }
+
+
+/* Add a hover effect */
+.hover-expand-text:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip; /* removes ellipsis */
+  z-index: 10;
+}

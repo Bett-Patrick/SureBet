@@ -43,14 +43,14 @@ const ApproveAdmins = () => {
     <div className="admin-approval">
       <h2 className="text-3xl font-bold mt-3 italic">Approve Admins</h2>
       <hr className="opacity-65 my-2"/>
-      <ul className="users-list flex flex-col gap-2">
+      <ul className="users-list flex flex-col justify-between gap-2 my-5 pb-5 md:pb-10 bg-gray-100 rounded-md mx-2 sm:mx-5 md:mx-15 md:px-10">
         {users.map(user => (
           // display each user in a list
           <li key={user.id}>
             {(user.role === "user" || user.role === "admin") && (
               <div className="flex flex-row items-center justify-between py-2 mx-2 border-b gap-3">
-                <span className="max-w-[30%] text-left text-sm md:text-base">{user.email}</span>
-                <span className="w-[10%] font-bold text-md md:text-xl"> {user.role}</span>
+                <p className="min-w-[50%] truncate hover:whitespace-normal hover:overflow-visible text-left text-sm md:text-base">{user.email}</p>
+                <p className="w-[20%] font-bold text-md border-x border-x-gray-300 md:text-xl"> {user.role}</p>
                 {/* button to promote admin */}
                 {user.role === "user" && (
                   <button onClick={() => makeAdmin(user.id)} className="bg-green-600 text-white p-2 rounded font-semibold">
