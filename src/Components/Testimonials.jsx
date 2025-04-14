@@ -123,29 +123,29 @@ var testimonials = [
 
 const Testimonials = () => {  
   return (
-    <div className="testimonials-page mb-30 gap-10 mx-auto">
-        <div className="testimonials-header py-5 mb-5 w-[98%] rounded-lg mx-auto">
-            <h1 className="font-bold text-4xl">TESTIMONIALS</h1>
-            <h1 className="text-3xl font-bold my-5">What Our <span className="font-bold text-amber-300">Clients Say</span> </h1>
-        </div>
-        <ul className="grid grid-cols-1 lg:grid-cols-2 testimonials w-full mx-auto gap-5 bg-[#000435] py-10" style={{ listStyleType: "none" }}>
-          {[...new Set(Array.from({ length: 10 }, () => Math.floor(Math.random() * testimonials.length)))]
-          .map((index) => {
-            const testimonial = testimonials[index]; // Get the actual testimonial object
-            return (
-              <li key={index} className="testimonial-item mx-2 w-full">
-                <div className="testimonial border border-gray-200 w-md p-5 rounded-lg bg-white shadow-md shadow-amber-400">
-                  <p className="quote italic">“{testimonial.testimonial}”</p>
-                  <p className="name font-semibold text-gray-900">{testimonial.name}</p>
-                  <p className="location text-sm text-gray-500">{testimonial.location}</p>
-                  <div className="rating text-yellow-500 mt-2">
-                    {"★".repeat(testimonial.rating) + "☆".repeat(5 - testimonial.rating)}
-                  </div>
+    <div className="testimonials-page w-full mb-30 gap-10 mx-auto">
+      <div className="testimonials-header py-5 mb-5 w-[98%] rounded-lg mx-auto">
+          <h1 className="font-bold text-3xl md:text-4xl">TESTIMONIALS</h1>
+          <h1 className="text-2xl md:text-3xl font-bold my-3 md:my-5">What Our <span className="font-bold text-amber-300">Clients Say</span> </h1>
+      </div>
+      <ul className="grid grid-cols-1 lg:grid-cols-2 testimonials w-full mx-auto gap-5 bg-[#000435] py-10" style={{ listStyleType: "none" }}>
+        {[...new Set(Array.from({ length: 10 }, () => Math.floor(Math.random() * testimonials.length)))]
+        .map((index) => {
+          const testimonial = testimonials[index]; // Get the actual testimonial object
+          return (
+            <li key={index} className="testimonial-item w-[90%] mx-auto">
+              <div className="testimonial border border-gray-200 mx-auto p-5 rounded-lg bg-white shadow-md shadow-amber-400">
+                <p className="quote italic">“{testimonial.testimonial}”</p>
+                <p className="name font-semibold text-gray-900">{testimonial.name}</p>
+                <p className="location text-sm text-gray-500">{testimonial.location}</p>
+                <div className="rating text-yellow-500 mt-2">
+                  {"★".repeat(testimonial.rating) + "☆".repeat(5 - testimonial.rating)}
                 </div>
-              </li>
-            );
-          })}
-        </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   )
 }
