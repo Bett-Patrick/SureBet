@@ -120,13 +120,13 @@ const AddPrediction = () => {
     <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-[5%] border w-[90%] rounded-md'>
       <h1 className='text-4xl font-bold mt-5'>Add Prediction</h1>
       <hr className='h-2 mx-auto opacity-20 my-2' />
-      <div className='flex flex-row gap-5 items-center justify-center my-5'>
+      <div className='flex flex-row gap-5 w-[90%] items-center justify-center my-5 mx-auto'>
         <input
           type='text'
           placeholder='Enter team name to search fixture...'
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
-          className='border p-2 rounded-xl w-64 shadow-md shadow-gray-400'
+          className='border p-2 rounded-xl text-sm md:text-base shadow-md shadow-gray-400 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal hover:overflow-visible hover:z-10 relative'
         />
         <button
           onClick={handleSearch}
@@ -164,7 +164,7 @@ const AddPrediction = () => {
         )}
       </div>
       <form onSubmit={handleSubmit}>
-        <h1 className='text-left mb-3 text-[#350200] text-lg'>
+        <h1 className='text-left mb-3 text-[#350200] text-sm sm:text-md md:text-lg'>
           These fields will be Automatically filled Accordingly after searching fixture:
         </h1>
         <div className='flex flex-row gap-5 items-center'>
@@ -213,12 +213,12 @@ const AddPrediction = () => {
 
         {/* Select Plans Section */}
         <div className='w-full mt-5'>
-          <h1 className='text-left mb-3 text-[#000435] text-lg'>Assign to Plans:</h1>
+          <h1 className='text-left mb-3 text-[#000435] text-md md:text-lg'>Assign to Plans:</h1>
           <div className='flex flex-row gap-3'>
             {['free', 'silver', 'gold', 'platinum'].map((plan) => (
-              <div key={plan} className='flex gap-2 text-xl text-[#000435] font-bold'>
+              <div key={plan} className='flex gap-1 md:gap-3 items-center text-sm md:text-lg text-[#000435] font-bold'>
                 <input
-                  className='custom-checkbox'
+                  className='custom-checkbox text-sm md:text-lg'
                   type='checkbox'
                   id={plan}
                   name={plan}

@@ -6,7 +6,6 @@ import { fetchOddsByFixtureId } from '../Utilities/footballApi'; // Import the u
 import { MdStadium } from "react-icons/md";
 import { GiWhistle } from "react-icons/gi";
 import { MdOutlineDateRange } from "react-icons/md";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosTimer } from "react-icons/io";
 
 const FreeTips = () => {
