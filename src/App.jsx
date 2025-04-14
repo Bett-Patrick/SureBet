@@ -12,7 +12,6 @@ import PrivateRoute from "./Components/PrivateRoute";
 import AdminLayout from "./Pages/Admin/AdminLayout";
 import AddPrediction from "./Pages/Admin/AddPrediction";
 import ApproveAdmins from "./Pages/Admin/ApproveAdmins";
-import FreeTips from "./Components/FreeTips";
 import SilverTips from "./Pages/SilverTips";
 import GoldTips from "./Pages/GoldTips";
 import PlatinumTips from "./Pages/PlatinumTips";
@@ -48,9 +47,11 @@ const App = () => {
           {/* super-admin Routes (Protected) */}
           <Route path="/super-admin" element={<PrivateRoute requiredRole="super-admin"><AdminLayout/></PrivateRoute>}>
             <Route index element={<AddPrediction />} /> {/* Default page inside /admin */}
+            <Route path="add-prediction" element={<AddPrediction />} />
             <Route path="approve-admin" element={<ApproveAdmins />} />
           </Route>
 
+          <Route path="*" element={<Navigate to="/" />} />
 
         </Route>
       </Routes>
