@@ -18,7 +18,7 @@ const NavBar = () => {
     };
 
   return (
-<header className="bg-[#000435] w-full px-4 py-3">
+<header className="bg-[#000435] w-full px-4 py-3 mx-auto">
   {/* Top Row: Logo and Auth Buttons */}
   <div className="flex items-center justify-between w-full mx-auto text-yellow-400 font-medium whitespace-nowrap gap-3">
     {/* Logo */}

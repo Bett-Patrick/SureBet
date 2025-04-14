@@ -104,19 +104,22 @@ const FreeTips = () => {
         return <div>Error: {error}</div>;
     }
 
+    const isAllActive = !filters.date && !filters.league && !filters.team;
+
+
     return (
         <div className="free-tips-component p-2 w-full">
             <h1 className="text-4xl font-bold">Explore Our <span className="text-amber-300">Free Tips</span></h1>
-            <h1 className="text-md text-gray-400 italic my-4">Lorem ipsum dolor sit amet consectetur.</h1>
+            <h1 className="text-sm md:text-base text-gray-400 italic my-4">Join thousands of fans who rely on our free tips every day.</h1>
 
             {/* Filters Section */}
-            <div className="filters flex flex-row gap-2 w-fit mx-auto mb-5">
+            <div className="filters flex flex-row justify-center gap-2 w-fit mx-auto mb-5">
                 <input
                     type="date"
                     name="date"
                     value={filters.date}
                     onChange={handleFilterChange}
-                    className="border p-1 rounded-md w-[25%] text-[12px] sm:text-sm md:text-md lg:text-lg"
+                    className="border p-1 rounded-md w-[30%] text-[12px] sm:text-sm md:text-md lg:text-lg"
                 />
                 <input
                     type="text"
@@ -124,7 +127,7 @@ const FreeTips = () => {
                     placeholder="Filter by league"
                     value={filters.league}
                     onChange={handleFilterChange}
-                    className="border p-1 rounded-md w-[25%] text-[10px] sm:text-sm md:text-md lg:text-lg"
+                    className="border p-1 rounded-md w-[25%] text-[12px] sm:text-sm md:text-md lg:text-lg"
                 />
                 <input
                     type="text"
@@ -136,7 +139,9 @@ const FreeTips = () => {
                 />
                 <button
                     onClick={handleShowAll}
-                    className="bg-slate-300 text-gray-700 px-4 py-2 rounded-md font-bold hover:bg-slate-400 hover:text-amber-50 active:bg-amber-400 focus:bg-amber-400"
+                    className={`px-4 py-2 rounded-md font-bold hover:bg-slate-400 hover:text-black ${
+                        isAllActive ? 'bg-amber-400 text-white' : 'bg-slate-300 text-gray-700'
+                    }`}
                 >
                     All
                 </button>

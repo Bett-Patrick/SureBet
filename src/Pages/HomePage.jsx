@@ -46,7 +46,10 @@ const HomePage = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center h-full text-center">
-          <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-amber-300">
+          <h1 
+              className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-amber-300"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }} // Text Shadow
+          >
             WIN MORE WITH EXPERT FOOTBALL PREDICTIONS
           </h1>
           <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold my-3 text-white">

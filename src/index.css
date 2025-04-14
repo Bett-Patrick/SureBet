@@ -12,6 +12,10 @@ body{
 
 #root {
   max-width: 100%;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   text-align: center;
 }

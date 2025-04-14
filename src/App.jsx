@@ -12,6 +12,10 @@ import PrivateRoute from "./Components/PrivateRoute";
 import AdminLayout from "./Pages/Admin/AdminLayout";
 import AddPrediction from "./Pages/Admin/AddPrediction";
 import ApproveAdmins from "./Pages/Admin/ApproveAdmins";
+import FreeTips from "./Components/FreeTips";
+import SilverTips from "./Pages/SilverTips";
+import GoldTips from "./Pages/GoldTips";
+import PlatinumTips from "./Pages/PlatinumTips";
 
 const App = () => {
   const {user, role} = useAuth();
@@ -30,6 +34,9 @@ const App = () => {
             path="/login" 
             element={user ? (role === "super-admin" ? <Navigate to="/super-admin" /> : <Navigate to="/" />) : (<Login />)} 
           />
+          <Route path="/silver-tips" element={<SilverTips/>}/>
+          <Route path="/gold-tips" element={<GoldTips/>}/>
+          <Route path="/platinum-tips" element={<PlatinumTips/>}/>
           <Route path="/profile" element={user ? <UserProfile /> : <Navigate to="/login"/>} />
           <Route path="/predictions" element={<PredictionsPage />} />
           <Route path="/reset-password" element={<PasswordReset/>}></Route>
