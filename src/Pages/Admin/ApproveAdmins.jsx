@@ -45,22 +45,26 @@ const ApproveAdmins = () => {
       <hr className="opacity-65 my-2"/>
       <ul className="users-list flex flex-col gap-2">
         {users.map(user => (
-          <li key={user.id} className="flex p-2 border-b items-center">
-            <span className="w-[30%] text-left">{user.email}</span>
-            <span className="w-[30%] font-bold text-xl"> {user.role}</span>
+          <li key={user.id} className="flex flex-row items-center justify-between py-2 mx-2 border-b gap-3">
+            <span className="max-w-[30%] text-left text-sm md:text-base">{user.email}</span>
+            <span className="w-[10%] font-bold text-md md:text-xl"> {user.role}</span>
             {/* button to promote admin */}
             {user.role === "user" && (
-              <button onClick={() => makeAdmin(user.id)} className="bg-green-600 ml-[28%] text-white p-2 rounded font-semibold">
-                Make Admin
+              <button onClick={() => makeAdmin(user.id)} className="bg-green-600 text-white p-2 rounded font-semibold">
+                Promote
               </button>
             )}
             {/* button to demote admin */}
             {user.role === "admin" && (
-              <button onClick={() => demoteAdmin(user.id)} className="bg-red-600 ml-[28%] text-white p-2 rounded font-semibold">
-                Demote Admin
+              <button onClick={() => demoteAdmin(user.id)} className="bg-red-600 text-white p-2 rounded font-semibold">
+                Demote
               </button>
             )}
+            {user.role === "super-admin" && (
+              <span className="bg-gray-950 text-gray-950 rounded w-[20%]">{user.role}</span>
+            )}
           </li>
+
         ))}
       </ul>
     </div>
