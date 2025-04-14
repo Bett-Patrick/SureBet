@@ -46,14 +46,14 @@ const HomePage = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center h-full text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-amber-300">
+          <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-amber-300">
             WIN MORE WITH EXPERT FOOTBALL PREDICTIONS
           </h1>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold my-3 text-white">
+          <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold my-3 text-white">
             & BETTING TIPS
           </h1>
 
-          <div className="flex justify-center items-center gap-10 mt-5 text-2xl">
+          <div className="flex flex-col justify-center items-center gap-2 md:flex-row md:gap-10 mt-5 mx-auto text-2xl ">
             <div className="flex justify-center items-center gap-3 text-white">
               <IoCheckbox className='bg-[#006400]'/>
               <p>Expert Tips</p>  
@@ -70,7 +70,7 @@ const HomePage = () => {
           <OurWinsCarousel/>
         </div>
       </div>
-      <Pricing className=""/>
+      <Pricing/>
       <FreeTips/>
       {user && <SilverTips/>} {/* Show SilverTips only if the user is logged in */}
       {user && <GoldTips/>}   {/* Show GoldTips only if the user is logged in */}

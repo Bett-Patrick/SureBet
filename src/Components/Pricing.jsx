@@ -5,9 +5,9 @@ const Pricing = () => {
   return (
     <div className="pricings-page md:min-w-[500] mb-10 gap-10 w-[90%] mx-auto">
       <h1 className="text-4xl font-bold mb-5">PRICING</h1>
-      <h3 className="text-3xl font-bold mb-10"><span className="text-amber-300">Join a Club</span>  that Suits You</h3>
+      <h3 className=" text-2xl mb-5 md:text-3xl font-bold md:mb-10"><span className="text-amber-300">Join a Club</span>  that Suits You</h3>
 
-      <div className="pricings flex justify-center items-center gap-10">
+      <div className="pricings flex flex-col gap-3 md:flex-row md:justify-center items-center md:gap-10">
         <div className="container flex flex-col w-[30%] bg-slate-100 p-2 mb-10 rounded-xl h-80">
           <h1 className="font-bold text-3xl text-[#C0C0C0]">SILVER</h1>
           <hr className="opacity-20" />
