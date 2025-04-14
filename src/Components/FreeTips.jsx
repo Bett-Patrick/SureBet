@@ -6,6 +6,7 @@ import { fetchOddsByFixtureId } from '../Utilities/footballApi'; // Import the u
 import { MdStadium } from "react-icons/md";
 import { GiWhistle } from "react-icons/gi";
 import { MdOutlineDateRange } from "react-icons/md";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosTimer } from "react-icons/io";
 
 const FreeTips = () => {
@@ -104,18 +105,18 @@ const FreeTips = () => {
     }
 
     return (
-        <div className="free-tips-component p-5">
+        <div className="free-tips-component p-2 w-full">
             <h1 className="text-4xl font-bold">Explore Our <span className="text-amber-300">Free Tips</span></h1>
             <h1 className="text-md text-gray-400 italic my-4">Lorem ipsum dolor sit amet consectetur.</h1>
 
             {/* Filters Section */}
-            <div className="filters flex flex-row gap-5 m-5">
+            <div className="filters flex flex-row gap-2 w-fit mx-auto mb-5">
                 <input
                     type="date"
                     name="date"
                     value={filters.date}
                     onChange={handleFilterChange}
-                    className="border p-2 rounded-md"
+                    className="border p-1 rounded-md w-[25%] text-[12px] sm:text-sm md:text-md lg:text-lg"
                 />
                 <input
                     type="text"
@@ -123,7 +124,7 @@ const FreeTips = () => {
                     placeholder="Filter by league"
                     value={filters.league}
                     onChange={handleFilterChange}
-                    className="border p-2 rounded-md"
+                    className="border p-1 rounded-md w-[25%] text-[10px] sm:text-sm md:text-md lg:text-lg"
                 />
                 <input
                     type="text"
@@ -131,7 +132,7 @@ const FreeTips = () => {
                     placeholder="Filter by team"
                     value={filters.team}
                     onChange={handleFilterChange}
-                    className="border p-2 rounded-md"
+                    className="border p-1 rounded-md w-[25%] text-[12px] sm:text-sm md:text-md lg:text-lg"
                 />
                 <button
                     onClick={handleShowAll}
