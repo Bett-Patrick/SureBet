@@ -121,7 +121,7 @@ const AddPrediction = () => {
   };
 
   return (
-    <div className='add-prediction-page md:min-w-[500] my-10 gap-10 mx-auto px-10 border w-[90%] rounded-md'>
+    <div className='add-prediction-page my-10 md:mx-auto p-2 md:px-10 border mx-auto w-[95%] sm:w-[90%] rounded-md'>
       <h1 className='text-4xl font-bold mt-5'>Add Prediction</h1>
       <hr className='h-2 mx-auto opacity-20 my-2' />
 
@@ -183,7 +183,7 @@ const AddPrediction = () => {
         <h1 className='text-left mb-3 text-[#350200] text-sm sm:text-md md:text-lg'>
           These fields will be Automatically filled Accordingly after searching fixture:
         </h1>
-        <div className='flex flex-row gap-5 items-center'>
+        <div className='flex flex-col bg-slate-200 rounded-sm p-3 gap-1 lg:flex-row lg:gap-5 lg:bg-white items-center'>
           <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Home Team:</strong> {homeTeam || 'N/A'}
           </p>
@@ -200,7 +200,7 @@ const AddPrediction = () => {
             <strong>Time:</strong> {time || 'N/A'}
           </p>
         </div>
-        <div className='flex flex-row gap-5 items-center mt-5'>
+        <div className='flex flex-col lg:flex-row gap-5 items-center mt-5'>
           <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Referee:</strong> {referee || 'N/A'}
           </p>
@@ -210,7 +210,7 @@ const AddPrediction = () => {
         </div>
         <div className='flex flex-row gap-2 items-center mt-5'>
           <Select
-            className='w-full'
+            className='w-full text-sm sm:text-base'
             placeholder='Select Prediction Type'
             options={predictionTypes}
             value={predictionType}
@@ -218,7 +218,7 @@ const AddPrediction = () => {
             isSearchable
           />
           <Select
-            className='w-full'
+            className='w-full text-sm sm:text-base'
             placeholder='Select Prediction Value'
             options={predictionOptions}
             value={predictionValue}
