@@ -77,7 +77,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/surebet.git
+git clone https://github.com/Bett-Patrick/SureBet.git
 cd surebet
 
 # 2. Install dependencies
