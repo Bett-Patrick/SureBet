@@ -9,7 +9,7 @@ const Pricing = () => {
       <h3 className=" text-2xl mb-5 md:text-3xl font-bold md:mb-10"><span className="text-amber-300">Join a Club</span>  that Suits You</h3>
 
       <div className="pricings flex flex-col gap-3 md:flex-row md:justify-center items-center md:gap-10 py-2">
-        <div className="container flex flex-col w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
+        <div className="container flex flex-col w-[80%] md:w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
           <h1 className="font-bold text-3xl text-[#C0C0C0]">SILVER</h1>
           <hr className="opacity-20" />
           <p>Ksh 200/ day</p>
@@ -20,7 +20,7 @@ const Pricing = () => {
           <NavLink to="/silver-tips" className="bg-[#006400] border border-black text-white mx-auto mb-2 p-2 rounded-md font-bold hover:w-50 hover:h-12 text-lg hover:border-yellow-500">Get Started Now</NavLink>
         </div>
 
-        <div className="container flex flex-col w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
+        <div className="container flex flex-col w-[80%] md:w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
           <h1 className="font-bold text-3xl text-[#ffd700]">GOLD</h1>
           <hr className="opacity-20" />
           <p>Ksh 600/ week</p>
@@ -31,7 +31,7 @@ const Pricing = () => {
            <NavLink to="/gold-tips" className="bg-[#006400] border border-black text-white mx-auto mt-auto my-2 p-2 rounded-md font-bold hover:w-50 hover:h-12 text-lg hover:border-yellow-500 ">Get Started Now</NavLink>
         </div>
 
-        <div className="container flex flex-col w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
+        <div className="container flex flex-col w-[80%] md:w-[30%] bg-slate-100 p-2 mb-10 rounded-xl min-h-90">
           <h1 className="font-bold text-3xl text-blue-900">PLATINUM
           </h1>
           <hr className="opacity-20" />

@@ -179,11 +179,11 @@ const AddPrediction = () => {
           </div>
         )}
       </div>
-      <form onSubmit={handleSubmit}>
-        <h1 className='text-left mb-3 text-[#350200] text-sm sm:text-md md:text-lg'>
-          These fields will be Automatically filled Accordingly after searching fixture:
+      <form onSubmit={handleSubmit} className='text-sm md:text-base' >
+        <h1 className='mb-3 text-red-500 opacity-80 text-sm text-center sm:text-md md:text-lg'>
+          The fields bellow will be Automatically filled Accordingly after searching fixture !!
         </h1>
-        <div className='flex flex-col bg-slate-200 rounded-sm p-3 gap-1 lg:flex-row lg:gap-5 lg:bg-white items-center'>
+        <div className='flex flex-col bg-slate-200 rounded-md p-3 gap-1 lg:flex-row lg:gap-5 lg:bg-white items-center'>
           <p className='border border-[#000435] rounded-md md:rounded-3xl p-1 md:p-3 w-full'>
             <strong>Home Team:</strong> {homeTeam || 'N/A'}
           </p>
